@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="Site_Manager.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}">Managed Web Pages</TextBlock>
+            <ListView Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" Grid.Column="0" Width="450" Height="500" HorizontalAlignment="Left" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="NewPageTextBox" Margin="0,12,0,0" Width="400" HorizontalAlignment="Left" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" KeyUp="NewPageTextBox_KeyUp"></TextBox>
+                <Button Name="AddNewPageButton" Padding="0" VerticalAlignment="Stretch" Margin="14,9,0,0" Click="AddNewPageButton_Click" Style="{StaticResource ContentOnlyButtonStyle}">&#xE109;</Button>
+            </StackPanel>
+            <TextBlock Name="AddNewPageStatusTextBlock" Foreground="Red" Margin="12,12,0,0" Visibility="Collapsed" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Name="DeployButton" Click="DeployButton_Click" Visibility="Visible" FontSize="16" Style="{StaticResource ContentOnlyButtonStyle}">
+                <StackPanel>
+                    <Border CornerRadius="85" Width="170" Height="170" Background="{ThemeResource AccentButtonBackground}">
+                        <TextBlock VerticalAlignment="Center" FontWeight="Bold" TextAlignment="Center" FontSize="26" LineHeight="36"><Run>Deploy</Run><LineBreak/><Run>Everything</Run></TextBlock>
+                    </Border>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

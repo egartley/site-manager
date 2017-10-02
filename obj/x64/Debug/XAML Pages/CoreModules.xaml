@@ -1,0 +1,113 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="Site_Manager.CoreModules"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+                        >
+
+    <Page.Resources>
+        <Style x:Key="GridStyle" TargetType="Grid">
+            <Setter Property="Margin" Value="0,12,0,24" />
+            <Setter Property="MaxWidth" Value="1050" />
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,0,32" />
+            <Setter Property="MaxWidth" Value="1050" />
+            <Setter Property="MinHeight" Value="72" />
+            <Setter Property="MaxHeight" Value="500" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="IsSpellCheckEnabled" Value="False" />
+            <Setter Property="IsTextPredictionEnabled" Value="False" />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <CompositeTransform />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Grid.Column" Value="0" />
+        </Style>
+        <Style x:Key="SaveButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
+            <Setter Property="Margin" Value="16,0,0,0" />
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="MinWidth" Value="72" />
+            <Setter Property="Content" Value="Save" />
+        </Style>
+    </Page.Resources>
+
+    <StackPanel>
+        <Grid Style="{StaticResource GridStyle}" Tag="header">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource TitleStyle}">Required Header Elements</TextBlock>
+            <Button x:ConnectionId='12' Tag="header" Style="{StaticResource SaveButtonStyle}"                          />
+            <Button x:ConnectionId='13' Tag="header" Style="{StaticResource ChevronButtonStyle}"                       Name="HeaderChevron" />
+        </Grid>
+        <TextBox x:ConnectionId='2' Name="HeaderTextBox" Tag="header" Style="{StaticResource TextBoxStyle}" />
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <Grid Style="{StaticResource GridStyle}" Tag="navbar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource TitleStyle}">Navigation Bar</TextBlock>
+            <Button x:ConnectionId='10' Tag="navbar" Style="{StaticResource SaveButtonStyle}"                          />
+            <Button x:ConnectionId='11' Tag="navbar" Style="{StaticResource ChevronButtonStyle}"                       Name="NavbarChevron" />
+        </Grid>
+        <TextBox x:ConnectionId='3' Name="NavBarTextBox" Tag="navbar" Style="{StaticResource TextBoxStyle}" />
+        <!-- -->
+        <!-- -->
+        <!-- -->
+        <Grid Style="{StaticResource GridStyle}" Tag="sidebar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource TitleStyle}">Sidebar Widgets</TextBlock>
+            <Button x:ConnectionId='8' Tag="sidebar" Style="{StaticResource SaveButtonStyle}"                          />
+            <Button x:ConnectionId='9' Tag="sidebar" Style="{StaticResource ChevronButtonStyle}"                       Name="SidebarChevron" />
+        </Grid>
+        <TextBox x:ConnectionId='4' Name="SidebarTextBox" Tag="sidebar" Style="{StaticResource TextBoxStyle}" />
+        <!-- -->
+        <!-- -->
+        <!-- -->
+        <Grid Style="{StaticResource GridStyle}" Tag="footer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource TitleStyle}">Footer Content</TextBlock>
+            <Button x:ConnectionId='6' Tag="footer" Style="{StaticResource SaveButtonStyle}"                          />
+            <Button x:ConnectionId='7' Tag="footer" Style="{StaticResource ChevronButtonStyle}"                       Name="FooterChevron" />
+        </Grid>
+        <TextBox x:ConnectionId='5' Name="FooterTextBox" Tag="footer" Style="{StaticResource TextBoxStyle}" />
+    </StackPanel>
+</Page>
+

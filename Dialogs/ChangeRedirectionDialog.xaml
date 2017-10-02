@@ -1,0 +1,30 @@
+﻿<ContentDialog
+    x:Class="Site_Manager.ChangeRedirectionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="go.egartley.net/">
+
+    <StackPanel>
+        <TextBlock Margin="0,24,0,0" Foreground="DarkGray">Redirects to</TextBlock>
+        <TextBlock Name="DestinationTextBlock" Margin="0,0,0,16" TextWrapping="Wrap" FontSize="18">http://example.com</TextBlock>
+
+        <TextBlock Margin="0,8,0,4" Foreground="DarkGray">Rename</TextBlock>
+        <TextBox Name="RenameTextBox" PlaceholderText="Short Link" TextChanged="RenameTextBox_TextChanged" IsEnabled="False" />
+
+        <TextBlock Margin="0,24,0,4" TextWrapping="Wrap" FontSize="18" Foreground="Red" FontWeight="SemiBold">Danger Zone</TextBlock>
+        <CheckBox Name="DeleteRedirectionCheckBox" Click="DeleteRedirectionCheckBox_Click">Delete this redirection</CheckBox>
+
+        <CheckBox Name="ConfirmationCheckBox" Visibility="Collapsed" Click="ConfirmationCheckBox_Click">Are you sure?</CheckBox>
+        <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+            <Button Name="ApplyButton" Width="128" IsEnabled="False" Click="ApplyButton_Click" Style="{StaticResource ButtonRevealStyle}">Apply</Button>
+            <StackPanel Name="WorkingStackPanel" Orientation="Horizontal" Margin="18,0,0,0" Visibility="Collapsed">
+                <ProgressRing Name="WorkingProgressRing" Margin="0,0,12,0" Width="24" Height="24" VerticalAlignment="Center" Visibility="Collapsed"/>
+                <TextBlock Name="WorkingTextBlock" HorizontalAlignment="Center" Visibility="Collapsed" VerticalAlignment="Center">Working...</TextBlock>
+            </StackPanel>
+            <Button Name="OkButton" Width="128" Margin="12,0,0,0" Click="OkButton_Click" Visibility="Visible" Style="{StaticResource ButtonRevealStyle}">OK</Button>
+        </StackPanel>
+    </StackPanel>
+</ContentDialog>
