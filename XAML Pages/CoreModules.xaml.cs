@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -9,11 +9,9 @@ namespace Site_Manager
     public sealed partial class CoreModules : Page
     {
 
-        public static ObservableCollection<string> Tags;
+        public static ObservableCollection<string> Tags = new ObservableCollection<string>() { new CoreModule().Tag };
 
-        private Storyboard Storyboard = new Storyboard();
-        private DoubleAnimation Rotate180Animation;
-        private DoubleAnimation CollaspeAnimation;
+        private Storyboard ShowAnimationStoryboard, HideAnimationStoryboard;
 
         public CoreModules()
         {
@@ -21,9 +19,24 @@ namespace Site_Manager
 
             Tags = new ObservableCollection<string>();
             foreach (TextBox box in GetTextBoxes())
+            {
                 Tags.Add(box.Tag.ToString());
+            }
 
-            Storyboard.Completed += (s, args) => { Storyboard.Stop(); Storyboard.Children.Clear(); };
+            if (CoreManager.Modules.Count == 1)
+            {
+                CoreManager.Modules.Clear();
+                for (int i = 0; i < Tags.Count; i++)
+                {
+                    CoreManager.Modules.Add(new CoreModule() { Tag = Tags[i] });
+                }
+            }
+
+            ShowAnimationStoryboard = (Storyboard)Resources["ShowAnimation"];
+            HideAnimationStoryboard = (Storyboard)Resources["HideAnimation"];
+
+            ShowAnimationStoryboard.Completed += (s, args) => { ShowAnimationStoryboard.Stop(); };
+            HideAnimationStoryboard.Completed += (s, args) => { HideAnimationStoryboard.Stop(); };
         }
 
         private ObservableCollection<TextBox> GetTextBoxes()
@@ -46,7 +59,16 @@ namespace Site_Manager
         {
             // set text for every TextBox
             foreach (string tag in Tags)
-                GetTextBoxByTag(tag).Text = CoreManager.GetModuleByTag(tag).Code;
+            {
+                if (CoreManager.GetModuleByTag(tag) == null)
+                {
+                    GetTextBoxByTag(tag).Text = "";
+                }
+                else
+                {
+                    GetTextBoxByTag(tag).Text = CoreManager.GetModuleByTag(tag).Code;
+                }
+            }
         }
 
         private TextBox GetTextBoxByTag(string tag)
@@ -63,63 +85,53 @@ namespace Site_Manager
             return r;
         }
 
-        private void SaveCode(object sender)
+        private async Task SaveCode(object sender)
         {
             // get tag of module to deploy
             string tag = (sender as Button).Tag.ToString();
             // update that module with the updated code
+            System.Diagnostics.Debug.WriteLine("IndexOf " + tag + ": " + CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag)));
             CoreManager.Modules[CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag))] = new CoreModule() { Code = GetTextBoxByTag(tag).Text, Tag = tag };
             // save changes
-            CoreManager.Save();
+            await CoreManager.Save();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e) => SaveCode(sender);
+        private async void SaveButton_Click(object sender, RoutedEventArgs e) => await SaveCode(sender);
 
         private void Chevron_Click(object sender, RoutedEventArgs e)
         {
-            string tag = (sender as Button).Tag.ToString();
+            Button chevron = sender as Button;
+            string tag = chevron.Tag.ToString();
             TextBox box = GetTextBoxByTag(tag);
-            Visibility vis = box.Visibility;
-            bool hidden = vis == Visibility.Collapsed;
-            int to = 180, from = 0;
 
-            if (hidden)
+            if (box.Visibility == Visibility.Collapsed)
             {
-                to = 0;
-                from = 180;
-            }
+                // show
 
-            // Chevron animation
-            Rotate180Animation = new DoubleAnimation { To = to, From = from, Duration = new TimeSpan(0, 0, 0, 0, 250) };
-            Storyboard.SetTarget(Rotate180Animation, sender as Button);
-            Storyboard.SetTargetProperty(Rotate180Animation, "(UIElement.RenderTransform).Angle");
-            Storyboard.Children.Add(Rotate180Animation);
+                Storyboard storyboard = ShowAnimationStoryboard;
+                if (storyboard.GetCurrentState() != ClockState.Stopped)
+                    return;
+                Storyboard.SetTarget(storyboard.Children[0] as DoubleAnimation, box);
+                storyboard.Begin();
 
-            if (hidden)
-            {
-                to = 1;
-                from = 0;
-            }
-            else
-            {
-                to = 0;
-                from = 1;
-            }
+                chevron.Content = GlobalString.DECODE_CHEVRON_UP;
 
-            // TextBox animation
-            CollaspeAnimation = new DoubleAnimation { To = to, From = from, Duration = new TimeSpan(0, 0, 0, 0, 250) };
-            Storyboard.SetTarget(CollaspeAnimation, box);
-            Storyboard.SetTargetProperty(CollaspeAnimation, "(UIElement.RenderTransform).(CompositeTransform.ScaleY)");
-            Storyboard.Children.Add(CollaspeAnimation);
-
-            if (!hidden)
-                box.Visibility = Visibility.Collapsed;
-            else
-            {
                 box.Visibility = Visibility.Visible;
             }
+            else
+            {
+                // hide
 
-            Storyboard.Begin();
+                Storyboard storyboard = HideAnimationStoryboard;
+                if (storyboard.GetCurrentState() != ClockState.Stopped)
+                    return;
+                Storyboard.SetTarget(storyboard.Children[0] as DoubleAnimation, box);
+                storyboard.Begin();
+
+                chevron.Content = GlobalString.DECODE_CHEVRON_DOWN;
+
+                box.Visibility = Visibility.Collapsed;
+            }
         }
 
     }

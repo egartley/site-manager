@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="ChevronButtonStyle" TargetType="Button" BasedOn="{StaticResource ContentOnlyButtonStyle}">
-        <Setter Property="Content" Value="&#xE0E5;" />
+        <Setter Property="Content" Value="&#xE972;" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="FontSize" Value="26" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -112,7 +112,7 @@
             <AcrylicBrush x:Key="ShellFrameContentBackgroundBrush"
                           BackgroundSource="HostBackdrop"
                           TintColor="Black"
-                          TintOpacity="0.95"
+                          TintOpacity="0.8075"
                           FallbackColor="Black"/>
         </ResourceDictionary>
 

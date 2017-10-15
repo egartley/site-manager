@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Windows.Storage;
-
 namespace Site_Manager
 {
     class WebPageManager

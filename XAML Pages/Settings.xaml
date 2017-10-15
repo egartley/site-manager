@@ -45,6 +45,7 @@
             <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,16">Developer Options</TextBlock>
             <StackPanel Orientation="Vertical">
                 <CheckBox Name="BlankDeployCheckBox" Content="Blank deploy" Checked="BlankDeployCheckBox_Checked" Unchecked="BlankDeployCheckBox_Unchecked" />
+                <CheckBox Name="UsePreviewDirectoryCheckBox" Content="Use &quot;/preview&quot; directory" />
             </StackPanel>
         </StackPanel>
     </StackPanel>

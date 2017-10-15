@@ -52,6 +52,14 @@
             <Setter Property="MinWidth" Value="72" />
             <Setter Property="Content" Value="Save" />
         </Style>
+        <Storyboard x:Key="HideAnimation">
+            <!-- <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).Angle" To="180" From="0" Duration="0:00:00.250" /> -->
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" To="0" From="1" Duration="0:00:00.250" /> 
+        </Storyboard>
+        <Storyboard x:Key="ShowAnimation">
+            <!-- <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).Angle" To="0" From="180" Duration="0:00:00.250" /> -->
+           <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" To="1" From="0" Duration="0:00:00.250" />
+        </Storyboard>
     </Page.Resources>
 
     <StackPanel>

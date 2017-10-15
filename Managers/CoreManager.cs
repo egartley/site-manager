@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Site_Manager
@@ -8,42 +10,38 @@ namespace Site_Manager
     {
 
         public static ObservableCollection<CoreModule> Modules = new ObservableCollection<CoreModule>();
-        public static bool ModulesLoaded = false;
+        public static bool Loaded = false;
 
         /// <summary>
-        /// Loads previously saved modules into memory, does nothing if already loaded
+        /// Loads previously saved modules into memory (if not already loaded)
         /// </summary>
-        public static void Load()
+        public static async void Load()
         {
-            if (ModulesLoaded)
+            if (Loaded)
                 return; // already loaded
 
             try
             {
-                ApplicationDataCompositeValue composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_COREMODULES);
-
-                if (composite == null)
+                StorageFile file = await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME);
+                if (file == null)
                 {
                     // create collection of empty modules
                     Modules = GetEmptyModules();
                     // save default modules
-                    Save();
+                    await Save();
                     // don't load again, will be in memory
-                    ModulesLoaded = true;
+                    Loaded = true;
                     // don't bother reading from file, return
                     return;
                 }
 
-                // get all the keys
-                string[] keys = new string[composite.Keys.Count];
-                composite.Keys.CopyTo(keys, 0);
-                
-                // recursively load from composite (by tag)
-                foreach (string key in keys)
-                    Modules.Add(new CoreModule() { Code = (string)composite[key], Tag = key.Substring(GlobalString.COMPOSITE_KEY_COREMODULES_PREFIX.Length) });
+                // recursively load from file
+                IList<string> lines = await FileIO.ReadLinesAsync(file);
+                foreach (string line in lines)
+                    Modules.Add(new CoreModule(line));
                 
                 // don't bother loading again, will always be in memory (right?!)
-                ModulesLoaded = true;
+                Loaded = true;
             }
             catch (Exception e)
             {
@@ -54,17 +52,18 @@ namespace Site_Manager
         /// <summary>
         /// Saves modules that are currently in memory as a composite
         /// </summary>
-        public static void Save()
+        public static async Task Save()
         {
-            ApplicationDataCompositeValue composite = new ApplicationDataCompositeValue();
+            string[] asStrings = new string[Modules.Count];
+            for (int i = 0; i < asStrings.Length; i++)
+                asStrings[i] = Modules[i].GetAsString();
 
-            foreach (CoreModule module in Modules)
-                composite[GlobalString.COMPOSITE_KEY_COREMODULES_PREFIX + module.Tag] = module.Code;
-
-            SettingsManager.SetComposite(composite, GlobalString.COMPOSITE_KEY_COREMODULES);
+            if (!await FileManager.GetExists(GlobalString.CORE_MODULES_FILENAME))
+                await FileManager.CreateStorageFile(GlobalString.CORE_MODULES_FILENAME);
+            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME), asStrings);
         }
 
-        private static ObservableCollection<CoreModule> GetEmptyModules()
+        public static ObservableCollection<CoreModule> GetEmptyModules()
         {
             ObservableCollection<CoreModule> r = new ObservableCollection<CoreModule>();
             foreach (string tag in CoreModules.Tags)
@@ -79,11 +78,15 @@ namespace Site_Manager
         /// <returns>CoreModule with specified tag, otherwise null</returns>
         public static CoreModule GetModuleByTag(string tag)
         {
-            if (!ModulesLoaded)
+            if (!Loaded)
                 return null;
+            System.Diagnostics.Debug.WriteLine(Modules.Count);
             foreach (CoreModule module in Modules)
-                if (module.Tag.ToString() == tag)
+            {
+                System.Diagnostics.Debug.WriteLine(module.Tag);
+                if (module.Tag.Equals(tag))
                     return module;
+            }
             return null;
         }
 

@@ -259,50 +259,6 @@ C:\VisualStudio15\Projects\Site Manager\obj\x64\Debug\qualifiers.txt
 C:\VisualStudio15\Projects\Site Manager\obj\x64\Debug\qualifiers.txt.intermediate
 C:\VisualStudio15\Projects\Site Manager\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\VisualStudio15\Projects\Site Manager\obj\x64\Debug\ProjectArchitectures.txt
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.g.i.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XamlTypeInfo.g.cs
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Style.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.xaml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Style.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.xbf
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XamlSaveStateFile.xml
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\App.xbf
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Dialogs\ChangeRedirectionDialog.xbf
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Dialogs\DeployDialog.xbf
@@ -322,6 +278,9 @@ C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\AppxManifest.xml
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Core\AppxManifest.xml
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Core\Site Manager.exe
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Site Manager.build.appxrecipe
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.pri
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.winmd
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Microsoft.CSharp.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ComponentModel.DataAnnotations.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Core.dll
@@ -359,7 +318,6 @@ C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.FileSystem.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.Primitives.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.Sockets.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Runtime.Extensions.dll
-C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\clrjit.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\clrcompression.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Private.Uri.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.AppContext.dll
@@ -436,6 +394,51 @@ C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.ReaderWriter.d
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.XDocument.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.XmlDocument.dll
 C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.XmlSerializer.dll
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.csprojResolveAssemblyReference.cache
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.g.i.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XamlTypeInfo.g.cs
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Style.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.xaml
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\App.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\ChangeRedirectionDialog.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\DeployDialog.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Dialogs\RedirectionDialog.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Shell.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Style.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\CoreModules.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\EditWebPage.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Home.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Redirections.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XAML Pages\Settings.xbf
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\XamlSaveStateFile.xml
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.csproj.CoreCompileInputs.cache
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.exe
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.pdb
@@ -443,15 +446,12 @@ C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\ResourceHandlingTask.stat
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.Microsoft.CSharp.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.Microsoft.VisualBasic.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Collections.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Runtime.InteropServices.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Diagnostics.Debug.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.FileSystem.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.Primitives.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.Sockets.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Runtime.Extensions.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Private.Uri.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Buffers.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Collections.Concurrent.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Collections.Immutable.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Collections.NonGeneric.SR.resw
@@ -459,12 +459,9 @@ C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Collec
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.ComponentModel.Annotations.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.ComponentModel.EventBasedAsync.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Data.Common.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Dynamic.Runtime.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Globalization.Extensions.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.Compression.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.Compression.ZipFile.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.IsolatedStorage.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.UnmanagedMemoryStream.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Linq.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Linq.Expressions.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Linq.Parallel.SR.resw
@@ -498,10 +495,6 @@ C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Thread
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Threading.Overlapped.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Threading.Tasks.Dataflow.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Threading.Tasks.Parallel.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Xml.ReaderWriter.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Xml.XDocument.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Xml.XmlDocument.SR.resw
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Xml.XmlSerializer.SR.resw
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\priconfig.xml
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\priconfig.xml.intermediate
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\layout.resfiles
@@ -513,9 +506,90 @@ C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\pri.resfiles.intermediate
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\qualifiers.txt
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\qualifiers.txt.intermediate
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\ProjectArchitectures.txt
-C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.dll
-C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.pri
-C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\Chilkat.winmd
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Chilkat.pri.xml
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.csprojResolveAssemblyReference.cache
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\ProjectArchitectures.txt
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ComponentModel.Composition.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ComponentModel.Primitives.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ComponentModel.TypeConverter.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Configuration.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Console.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Data.SqlClient.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Data.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Diagnostics.FileVersionInfo.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Diagnostics.Process.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Diagnostics.TextWriterTraceListener.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Diagnostics.TraceSource.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Drawing.Primitives.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Drawing.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.Compression.FileSystem.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.FileSystem.DriveInfo.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.FileSystem.Watcher.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.MemoryMappedFiles.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.Pipes.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.IO.Ports.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.HttpListener.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.Mail.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.Ping.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.Security.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.ServicePoint.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.WebClient.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Net.WebProxy.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Private.Xml.Linq.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Private.Xml.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Resources.Reader.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Resources.Writer.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Runtime.CompilerServices.VisualC.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Runtime.Serialization.Formatters.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Security.AccessControl.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Security.Cryptography.Csp.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Security.Principal.Windows.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Security.SecureString.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Security.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ServiceProcess.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Threading.Thread.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Threading.ThreadPool.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Transactions.Local.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Transactions.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.ValueTuple.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Web.HttpUtility.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Web.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.XPath.XDocument.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\System.Xml.XPath.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\WindowsBase.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\mscorlib.dll
+C:\Users\egart\Source\Repos\Site Manager\bin\x64\Debug\netstandard.dll
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.ComponentModel.Primitives.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.ComponentModel.TypeConverter.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Console.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Data.SqlClient.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Diagnostics.FileVersionInfo.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Diagnostics.Process.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Diagnostics.TextWriterTraceListener.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Diagnostics.TraceSource.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Drawing.Primitives.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.FileSystem.DriveInfo.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.FileSystem.Watcher.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.MemoryMappedFiles.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.Pipes.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.IO.Ports.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.HttpListener.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.Mail.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.Ping.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.Security.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.ServicePoint.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Net.WebClient.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Private.Xml.Linq.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Private.Xml.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Reflection.Context.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Reflection.TypeExtensions.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Resources.Writer.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Runtime.InteropServices.RuntimeInformation.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Runtime.InteropServices.WindowsRuntime.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Runtime.Serialization.Formatters.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Security.AccessControl.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Security.Cryptography.Csp.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Security.Principal.Windows.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Threading.Thread.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.Transactions.Local.SR.resw
+C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\FxResources.System.ValueTuple.SR.resw

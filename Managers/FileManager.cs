@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -33,6 +34,13 @@ namespace Site_Manager
             return await ApplicationData.Current.LocalFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
         }
 
+        public static async Task<StorageFile> GetStorageFile(string name)
+        {
+            if (!await GetExists(name))
+                return null;
+            return await ApplicationData.Current.LocalFolder.GetFileAsync(name);
+        }
+
         /// <summary>
         /// Returns the contents of the file as a string
         /// </summary>
@@ -47,6 +55,14 @@ namespace Site_Manager
         public static async Task WriteToFile(StorageFile file, string content)
         {
             await FileIO.WriteTextAsync(file, content);
+        }
+
+        /// <summary>
+        /// Writes specified lines to the file
+        /// </summary>
+        public static async Task WriteToFile(StorageFile file, IEnumerable<String> content)
+        {
+            await FileIO.WriteLinesAsync(file, content);
         }
 
         /// <summary>
