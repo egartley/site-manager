@@ -39,27 +39,25 @@ namespace Site_Manager
             Title = "Untitled";
         }
 
-        public void Updated()
-        {
-            LastUpdated = DateTime.Now;
-        }
+        public void Updated() => LastUpdated = DateTime.Now;
 
-        public void Submitted()
-        {
-            LastSubmitted = DateTime.Now;
-        }
+        public void Submitted() => LastSubmitted = DateTime.Now;
 
         public string GetLastUpdatedAsString()
         {
             if (LastUpdated.Equals(DateTime.MinValue))
+            {
                 return "Never";
+            }
             return LastUpdated.ToString("m") + ", " + LastUpdated.Year + " at " + LastUpdated.ToString("t");
         }
 
         public string GetLastSubmittedAsString()
         {
             if (LastSubmitted.Equals(DateTime.MinValue))
+            {
                 return "Never";
+            }
             return LastSubmitted.ToString("m") + ", " + LastSubmitted.Year + " at " + LastSubmitted.ToString("t");
         }
 

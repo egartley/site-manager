@@ -2,16 +2,16 @@
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Site_Manager
 {
     public sealed partial class CoreModules : Page
     {
 
-        public static ObservableCollection<string> Tags = new ObservableCollection<string>() { new CoreModule().Tag };
+        private bool LoadedTextBoxes = false;
 
-        private Storyboard ShowAnimationStoryboard, HideAnimationStoryboard;
+        public static ObservableCollection<string> Tags = new ObservableCollection<string>() { new CoreModule().Tag };
+        public static ObservableCollection<TextBox> TextBoxes = new ObservableCollection<TextBox>();
 
         public CoreModules()
         {
@@ -31,28 +31,6 @@ namespace Site_Manager
                     CoreManager.Modules.Add(new CoreModule() { Tag = Tags[i] });
                 }
             }
-
-            ShowAnimationStoryboard = (Storyboard)Resources["ShowAnimation"];
-            HideAnimationStoryboard = (Storyboard)Resources["HideAnimation"];
-
-            ShowAnimationStoryboard.Completed += (s, args) => { ShowAnimationStoryboard.Stop(); };
-            HideAnimationStoryboard.Completed += (s, args) => { HideAnimationStoryboard.Stop(); };
-        }
-
-        private ObservableCollection<TextBox> GetTextBoxes()
-        {
-            ObservableCollection<TextBox> r = new ObservableCollection<TextBox>();
-            foreach (UIElement element in (Content as StackPanel).Children)
-            {
-                if (element.GetType() == typeof(TextBox))
-                {
-                    // element is a TextBox
-                    r.Add(element as TextBox);
-                }
-                // else, it is not a TextBox, so ignore it and continue
-            }
-
-            return r;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -60,6 +38,7 @@ namespace Site_Manager
             // set text for every TextBox
             foreach (string tag in Tags)
             {
+                // Debug.Out("Processing \"" + tag + "\"...");
                 if (CoreManager.GetModuleByTag(tag) == null)
                 {
                     GetTextBoxByTag(tag).Text = "";
@@ -71,16 +50,51 @@ namespace Site_Manager
             }
         }
 
+        private ObservableCollection<TextBox> GetTextBoxes()
+        {
+            if (LoadedTextBoxes)
+            {
+                return TextBoxes;
+            }
+            TextBoxes.Clear();
+            foreach (UIElement element in (Content as StackPanel).Children)
+            {
+                if (element.GetType() == typeof(StackPanel))
+                {
+                    foreach (UIElement subElement in (element as StackPanel).Children)
+                    {
+                        if (subElement.GetType() == typeof(TextBox))
+                        {
+                            // element is a TextBox
+                            TextBoxes.Add(subElement as TextBox);
+                        }
+                    }
+                }
+                // otherwise it's not a TextBox, so ignore and continue
+            }
+            LoadedTextBoxes = true;
+            // Debug.Out("Successfully returned TextBoxes from CoreModules.xaml");
+            return TextBoxes;
+        }
+
         private TextBox GetTextBoxByTag(string tag)
         {
             TextBox r = null;
-            foreach (TextBox box in GetTextBoxes())
+            foreach (TextBox box in TextBoxes)
             {
                 if (box.Tag.ToString() == tag)
                 {
                     r = box;
                     break;
                 }
+            }
+            if (r != null)
+            {
+                // Debug.Out("Retrieved the TextBox with tag of \"" + tag + "\"");
+            }
+            else
+            {
+                Debug.Out("Couldn't find a TextBox with tag of \"" + tag + "\"", "WARNING");
             }
             return r;
         }
@@ -90,7 +104,7 @@ namespace Site_Manager
             // get tag of module to deploy
             string tag = (sender as Button).Tag.ToString();
             // update that module with the updated code
-            System.Diagnostics.Debug.WriteLine("IndexOf " + tag + ": " + CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag)));
+            Debug.Out("Updating module \"" + tag + "\"...");
             CoreManager.Modules[CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag))] = new CoreModule() { Code = GetTextBoxByTag(tag).Text, Tag = tag };
             // save changes
             await CoreManager.Save();
@@ -107,29 +121,13 @@ namespace Site_Manager
             if (box.Visibility == Visibility.Collapsed)
             {
                 // show
-
-                Storyboard storyboard = ShowAnimationStoryboard;
-                if (storyboard.GetCurrentState() != ClockState.Stopped)
-                    return;
-                Storyboard.SetTarget(storyboard.Children[0] as DoubleAnimation, box);
-                storyboard.Begin();
-
                 chevron.Content = GlobalString.DECODE_CHEVRON_UP;
-
                 box.Visibility = Visibility.Visible;
             }
             else
             {
                 // hide
-
-                Storyboard storyboard = HideAnimationStoryboard;
-                if (storyboard.GetCurrentState() != ClockState.Stopped)
-                    return;
-                Storyboard.SetTarget(storyboard.Children[0] as DoubleAnimation, box);
-                storyboard.Begin();
-
                 chevron.Content = GlobalString.DECODE_CHEVRON_DOWN;
-
                 box.Visibility = Visibility.Collapsed;
             }
         }

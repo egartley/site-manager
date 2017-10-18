@@ -25,6 +25,9 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Name" />
       <RootProperty Name="Visibility" />
+      <RootProperty Name="Padding" />
+      <RootProperty Name="CornerRadius" />
+      <RootProperty Name="Style" />
       <RootProperty Name="Transitions" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
@@ -163,7 +166,6 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Frame">
       <RootProperty Name="Name" />
       <RootProperty Name="Background" />
-      <RootProperty Name="Padding" />
       <RootProperty Name="ContentTransitions" />
       <RootEvent Name="Navigated" />
     </RootType>
@@ -187,8 +189,8 @@
     <RootType FullName="Windows.UI.Xaml.FrameworkElement">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Margin" />
       <RootProperty Name="MaxWidth" />
+      <RootProperty Name="Margin" />
       <RootProperty Name="MinHeight" />
       <RootProperty Name="MaxHeight" />
       <RootProperty Name="MinWidth" />
@@ -271,11 +273,8 @@
     <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
       <RootProperty Name="Color" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Media.Animation.DoubleAnimation">
-      <RootProperty Name="To" />
-      <RootProperty Name="From" />
-      <RootProperty Name="Duration" />
-      <RootProperty Name="RepeatBehavior" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Panel">
+      <RootProperty Name="Background" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.CompositeTransform" />
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
@@ -301,6 +300,10 @@
     <RootType FullName="Windows.UI.Xaml.Documents.Run" />
     <RootType FullName="Windows.UI.Xaml.Documents.LineBreak" />
     <RootType FullName="Site_Manager.Home" />
+    <RootType FullName="Windows.UI.Xaml.Media.Animation.DoubleAnimation">
+      <RootProperty Name="To" />
+      <RootProperty Name="RepeatBehavior" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Media.Animation.AddDeleteThemeTransition" />
     <RootType FullName="Windows.UI.Xaml.Controls.ToggleSwitch">
       <RootProperty Name="Name" />

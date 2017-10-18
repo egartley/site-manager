@@ -1,0 +1,11 @@
+App.xbf
+Dialogs\ChangeRedirectionDialog.xbf
+Dialogs\DeployDialog.xbf
+Dialogs\RedirectionDialog.xbf
+Shell.xbf
+Style.xbf
+XAML Pages\CoreModules.xbf
+XAML Pages\EditWebPage.xbf
+XAML Pages\Home.xbf
+XAML Pages\Redirections.xbf
+XAML Pages\Settings.xbf

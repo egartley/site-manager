@@ -7,7 +7,7 @@ namespace Site_Manager
     {
 
         private string URL;
-        public string Destination { get; set; }
+        string Destination { get; set; }
 
         public ChangeRedirectionDialog(string url, string d)
         {
@@ -42,12 +42,14 @@ namespace Site_Manager
         {
             Visibility v = Visibility.Collapsed;
             if (working)
+            {
                 v = Visibility.Visible;
-
-            if (working)
                 OkButton.Visibility = Visibility.Collapsed;
+            }
             else
+            {
                 OkButton.Visibility = Visibility.Visible;
+            }
 
             WorkingStackPanel.Visibility = v;
             WorkingProgressRing.Visibility = v;
@@ -59,16 +61,16 @@ namespace Site_Manager
         {
             Working(true);
 
-            bool rename = RenameTextBox.Text.Length != 0, delete = (bool)ConfirmationCheckBox.IsChecked;
+            bool rename = RenameTextBox.Text.Length != 0;
+            bool delete = (bool) ConfirmationCheckBox.IsChecked;
 
             // take action on applications
             if (delete)
             {
-                await FTPManager.ConnectAsync();
-                await FTPManager.DeleteFileAsync("/go/" + URL + "/index.html");
-                await FTPManager.DeleteDirectoryAsync("/go/" + URL);
-                await FTPManager.DisconnectAsync();
-
+                await FTPManager.Connect();
+                await FTPManager.DeleteFile("/go/" + URL + "/index.html");
+                await FTPManager.DeleteDirectory("/go/" + URL);
+                await FTPManager.Disconnect();
                 // already deleted, can't delete again!
                 DeleteRedirectionCheckBox.IsEnabled = false;
                 // doesn't go anywhere!
@@ -84,28 +86,28 @@ namespace Site_Manager
             }
             else
             {
-                // should never reach here, hopefully
+                // should never reach here (hopefully!)
             }
-
             Working(false);
             Apply(false);
             Deleted();
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
+        private void OkButton_Click(object sender, RoutedEventArgs e) => Hide();
 
         private void DeleteRedirectionCheckBox_Click(object sender, RoutedEventArgs e)
         {
             if (DeleteRedirectionCheckBox.IsChecked == true)
+            {
                 ConfirmationCheckBox.Visibility = Visibility.Visible;
+            }
             else
             {
                 ConfirmationCheckBox.Visibility = Visibility.Collapsed;
                 if (RenameTextBox.Text.Length == 0)
+                {
                     Apply(false);
+                }
             }
             ConfirmationCheckBox.IsChecked = false;
         }
@@ -113,17 +115,25 @@ namespace Site_Manager
         private void ConfirmationCheckBox_Click(object sender, RoutedEventArgs e)
         {
             if (ConfirmationCheckBox.IsChecked == true)
+            {
                 Apply(true);
+            }
             else if (RenameTextBox.Text.Length == 0)
+            {
                 Apply(false);
+            }
         }
 
         private void RenameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (RenameTextBox.Text.Length > 0)
+            {
                 Apply(true);
+            }
             else if (DeleteRedirectionCheckBox.IsChecked == false)
+            {
                 Apply(false);
+            }
         }
     }
 }

@@ -8,9 +8,7 @@ namespace Site_Manager
     {
 
         private static Random Random = new Random();
-
         public static bool IsValidURL(string s) => new Regex(@"^[a-zA-Z0-9-_/]+$").IsMatch(s);
-
         public static string RandomString(int length) => new string(Enumerable.Repeat("0123456789abcdefghijklmnopqrstuvwxyz", length).Select(s => s[Random.Next(s.Length)]).ToArray());
 
     }

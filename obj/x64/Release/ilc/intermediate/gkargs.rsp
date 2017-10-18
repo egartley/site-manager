@@ -1,0 +1,7 @@
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\Chilkat.winmd"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\Site Manager.exe"
+/Lib:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in"
+/Lib:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Private"
+/WinMD:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\WinMetadata\Windows.winmd"
+/RdXmlPath:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\LibraryXML"
+/RunOnlyPreDR

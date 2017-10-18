@@ -20,10 +20,7 @@ namespace Site_Manager
         private Random Random = new Random();
         private TextBlock CurrentListItem;
 
-        public Redirections()
-        {
-            InitializeComponent();
-        }
+        public Redirections() => InitializeComponent();
 
         private void Ready()
         {
@@ -35,60 +32,70 @@ namespace Site_Manager
         {
             string[] old = new string[ListItems.Count];
             for (int i = 0; i < ListItems.Count; i++)
+            {
                 old[i] = ListItems[i].Text;
+            }
             Array.Sort(old);
             ListItems.Clear();
             foreach (string s in old)
+            {
                 ListItems.Add(new TextBlock() { Text = s });
+            }
             CurrentRedirectionsListView.ItemsSource = ListItems;
         }
 
         private async Task Error(string message)
         {
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentException("message", nameof(message));
+            }
             MakeRedirectionStatusTextBlock.Foreground = Red;
             MakeRedirectionStatusTextBlock.Text = message;
             await Task.Delay(6000);
             Ready();
         }
 
-        private async Task Success(string addedItemURL)
+        private async Task Success(string url)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new ArgumentNullException(nameof(url));
+            }
             MakeRedirectionStatusTextBlock.Foreground = White;
             MakeRedirectionStatusTextBlock.Text = "Success!";
-
-            ListItems.Add(new TextBlock() { Text = addedItemURL });
+            ListItems.Add(new TextBlock() { Text = url });
             SortItems();
-
             await Task.Delay(3500);
-
             Ready();
         }
 
-        private async Task DeployRedirection(string shortURL, string destination)
+        private async Task DeployRedirection(string url, string destination)
         {
-            string path = "/go/" + shortURL;
-
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new ArgumentException("message", nameof(url));
+            }
+            if (string.IsNullOrEmpty(destination))
+            {
+                throw new ArgumentException("message", nameof(destination));
+            }
+            string path = "/go/" + url;
             MakeRedirectionStatusTextBlock.Text = "Writing file...";
             StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetRedirectionHTML(destination));
-
             MakeRedirectionStatusTextBlock.Text = "Connecting...";
-            await FTPManager.ConnectAsync();
-
-            MakeRedirectionStatusTextBlock.Text = "Checking for \"/" + shortURL + "\"...";
-            ExistsError = await FTPManager.GetDirectoryExistsAsync(path);
-
+            await FTPManager.Connect();
+            MakeRedirectionStatusTextBlock.Text = "Checking for \"/" + url + "\"...";
+            ExistsError = await FTPManager.GetDirectoryExists(path);
             if (!ExistsError)
             {
-                MakeRedirectionStatusTextBlock.Text = "Creating \"/" + shortURL + "\"...";
-                await FTPManager.CreateDirectoryAsync(path);
-
+                MakeRedirectionStatusTextBlock.Text = "Creating \"/" + url + "\"...";
+                await FTPManager.CreateDirectory(path);
                 MakeRedirectionStatusTextBlock.Text = "Uploading file...";
-                await FTPManager.UploadAsync(file, path);
+                await FTPManager.UploadFile(file, path);
             }
-
             MakeRedirectionStatusTextBlock.Text = "Disconnecting...";
-            await FTPManager.DisconnectAsync();
-
+            await FTPManager.Disconnect();
             MakeRedirectionStatusTextBlock.Text = "Deleting file...";
             await file.DeleteAsync();
         }
@@ -96,24 +103,24 @@ namespace Site_Manager
         private async Task FetchCurrentRedirections()
         {
             if (ListItems.Count > 0)
+            {
                 ListItems.Clear();
-
+            }
             FetchRedirectionsStatusTextBlock.Text = "Working...";
-            List<FTPItem> listing = await FTPManager.GetDirectoryContentsAsync("/go", true);
-
+            List<FTPItem> listing = await FTPManager.GetDirectoryContents("/go", true);
             for (int i = 0; i < listing.Count; i++)
             {
                 FTPItem currentItem = listing[i];
-
                 if (!currentItem.IsDirectory)
+                {
                     continue; // exclude .htaccess
-
+                }
                 else if (currentItem.Name == "cgi-bin" || currentItem.Name == ".well-known" || currentItem.Name == "error")
+                {
                     continue; // exclude protected and error page directories
-
+                }
                 ListItems.Add(new TextBlock() { Text = currentItem.Name });
             }
-
             CurrentRedirectionsListView.ItemsSource = ListItems;
         }
 
@@ -128,31 +135,45 @@ namespace Site_Manager
             // validate input
             bool textError = DestinationTextBox.Text.Contains(" ") || ShortURLTextBox.Text.Contains(" ");
             if (!textError)
+            {
                 textError = DestinationTextBox.Text.StartsWith("www.") || ShortURLTextBox.Text.StartsWith("/");
+            }
             if (!textError)
+            {
                 textError = DestinationTextBox.Text.EndsWith("/") || ShortURLTextBox.Text.EndsWith("/");
+            }
 
             // do work, assuming input it valid
             if (!textError)
+            {
                 await DeployRedirection(ShortURLTextBox.Text, DestinationTextBox.Text);
+            }
 
             // update UI
             RedirectionProgressRing.Visibility = Visibility.Collapsed;
             RedirectionProgressRing.IsActive = false;
             string dir = ShortURLTextBox.Text, dest = DestinationTextBox.Text;
             if (ShortURLTextBox.IsEnabled == false)
+            {
                 ShortURLTextBox.IsEnabled = true;
+            }
             ShortURLTextBox.Text = "";
             DestinationTextBox.Text = "";
             RandomizeShortURLToggleSwitch.IsOn = false;
 
             // update status with error or success
             if (ExistsError)
+            {
                 await Error("Failed to create \"/" + dir + "\" (already exists)!");
+            }
             else if (textError)
+            {
                 await Error("Invalid short link or destination!");
+            }
             else
+            {
                 await Success(dir);
+            }
         }
 
         private async void FetchRedirectionsButton_Click(object sender, RoutedEventArgs e)
@@ -221,10 +242,8 @@ namespace Site_Manager
         {
             TextBlock item = (TextBlock)e.ClickedItem;
             CurrentListItem = item;
-
             ChangeRedirectionDialog changeDialog = new ChangeRedirectionDialog(item.Text, ""); // destination will be determined later
             changeDialog.Closed += (s, args) => ChangeDialog_Closed();
-
             RedirectionDialog dialog = new RedirectionDialog(item.Text, changeDialog);
             await dialog.ShowAsync();
         }
@@ -232,9 +251,13 @@ namespace Site_Manager
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (DestinationTextBox.Text.Length > 0 && ShortURLTextBox.Text.Length > 0)
+            {
                 SubmitRedirectionButton.IsEnabled = true;
+            }
             else
+            {
                 SubmitRedirectionButton.IsEnabled = false;
+            }
         }
     }
 }

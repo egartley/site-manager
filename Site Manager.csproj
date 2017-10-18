@@ -96,6 +96,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Debug.cs" />
     <Compile Include="GlobalString.cs" />
     <Compile Include="Deployer.cs" />
     <Compile Include="Dialogs\ChangeRedirectionDialog.xaml.cs">

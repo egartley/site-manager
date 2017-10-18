@@ -8,13 +8,13 @@ namespace Site_Manager
 {
     class StorageManager
     {
-        public static void SaveToFile(object toSave, string filename)
+        public static void SaveToFile(object obj, string filename)
         {
             try
             {
-                DataContractSerializer ser = new DataContractSerializer(toSave.GetType());
+                DataContractSerializer ser = new DataContractSerializer(obj.GetType());
                 FileStream stream = new FileStream(ApplicationData.Current.LocalFolder.Path + "\\" + filename, FileMode.Create);
-                ser.WriteObject(stream, toSave);
+                ser.WriteObject(stream, obj);
                 stream.Dispose();
             }
             catch (Exception e)

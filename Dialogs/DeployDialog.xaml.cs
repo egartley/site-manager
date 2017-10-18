@@ -15,7 +15,6 @@ namespace Site_Manager
         {
             InitializeComponent();
             Pages = new ObservableCollection<ManagedWebPage>() { page };
-
             Opened += async (s, args) => { await Deploy(); };
         }
 
@@ -23,7 +22,6 @@ namespace Site_Manager
         {
             InitializeComponent();
             Pages = pages;
-
             Opened += async (s, args) => { await Deploy(); };
         }
 
@@ -38,11 +36,13 @@ namespace Site_Manager
             DateTime start = DateTime.Now;
             int interval = 100 / Pages.Count, i = 1;
             DeployProgressBar.Value = 0;
-            
-            foreach (ManagedWebPage page in Pages)
-                page.Submitted();
 
-            await FTPManager.ConnectAsync();
+            foreach (ManagedWebPage page in Pages)
+            {
+                page.Submitted();
+            }
+
+            await FTPManager.Connect();
 
             foreach (ManagedWebPage page in Pages)
             {
@@ -54,8 +54,8 @@ namespace Site_Manager
 
                 Log(msg);
                 StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetFullPageHTML(page));
-                
-                await FTPManager.UploadAsync(file, path);
+
+                await FTPManager.UploadFile(file, path);
                 await file.DeleteAsync();
 
                 DeployProgressBar.Value += interval;
@@ -64,7 +64,7 @@ namespace Site_Manager
                 LogTextBlock.Text = LogTextBlock.Text.Replace(msg, msg + " (Done!)");
             }
 
-            await FTPManager.DisconnectAsync();
+            await FTPManager.Disconnect();
 
             WebPageManager.Save();
 

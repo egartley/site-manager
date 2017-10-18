@@ -12,19 +12,22 @@ namespace Site_Manager
         public static ObservableCollection<CoreModule> Modules = new ObservableCollection<CoreModule>();
         public static bool Loaded = false;
 
-        /// <summary>
-        /// Loads previously saved modules into memory (if not already loaded)
-        /// </summary>
         public static async void Load()
         {
+            Debug.Out("Loading modules...");
             if (Loaded)
-                return; // already loaded
+            {
+                Debug.Out("Modules have already been loaded!", "WARNING");
+                return;
+            }
 
             try
             {
+                Debug.Out("Getting the \"" + GlobalString.CORE_MODULES_FILENAME + "\" file...");
                 StorageFile file = await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME);
                 if (file == null)
                 {
+                    Debug.Out("The \"" + GlobalString.CORE_MODULES_FILENAME + "\" file did not exist, creating an empty collection of modules", "WARNING");
                     // create collection of empty modules
                     Modules = GetEmptyModules();
                     // save default modules
@@ -35,11 +38,14 @@ namespace Site_Manager
                     return;
                 }
 
+                Debug.Out("Reading \"" + GlobalString.CORE_MODULES_FILENAME + "\" file...");
                 // recursively load from file
                 IList<string> lines = await FileIO.ReadLinesAsync(file);
                 foreach (string line in lines)
+                {
                     Modules.Add(new CoreModule(line));
-                
+                }
+
                 // don't bother loading again, will always be in memory (right?!)
                 Loaded = true;
             }
@@ -49,45 +55,48 @@ namespace Site_Manager
             }
         }
 
-        /// <summary>
-        /// Saves modules that are currently in memory as a composite
-        /// </summary>
         public static async Task Save()
         {
+            Debug.Out("Saving modules...");
             string[] asStrings = new string[Modules.Count];
             for (int i = 0; i < asStrings.Length; i++)
+            {
                 asStrings[i] = Modules[i].GetAsString();
-
+            }
             if (!await FileManager.GetExists(GlobalString.CORE_MODULES_FILENAME))
+            {
+                Debug.Out("The \"" + GlobalString.CORE_MODULES_FILENAME + "\" file doesn't exist, so will create an empty one", "WARNING");
                 await FileManager.CreateStorageFile(GlobalString.CORE_MODULES_FILENAME);
+            }
+            Debug.Out("Writing to " + GlobalString.CORE_MODULES_FILENAME + "\" file ...");
             await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME), asStrings);
+        }
+
+        public static CoreModule GetModuleByTag(string tag)
+        {
+            if (!Loaded)
+            {
+                return null;
+            }
+
+            foreach (CoreModule module in Modules)
+            {
+                if (module.Tag.Equals(tag))
+                {
+                    return module;
+                }
+            }
+            return null;
         }
 
         public static ObservableCollection<CoreModule> GetEmptyModules()
         {
             ObservableCollection<CoreModule> r = new ObservableCollection<CoreModule>();
             foreach (string tag in CoreModules.Tags)
-                r.Add(new CoreModule() { Code = "", Tag = tag });
-            return r;
-        }
-
-        /// <summary>
-        /// Returns the module with specified tag, otherwise null if not found or were not previously loaded with Load()
-        /// </summary>
-        /// <param name="tag">Tag to search for</param>
-        /// <returns>CoreModule with specified tag, otherwise null</returns>
-        public static CoreModule GetModuleByTag(string tag)
-        {
-            if (!Loaded)
-                return null;
-            System.Diagnostics.Debug.WriteLine(Modules.Count);
-            foreach (CoreModule module in Modules)
             {
-                System.Diagnostics.Debug.WriteLine(module.Tag);
-                if (module.Tag.Equals(tag))
-                    return module;
+                r.Add(new CoreModule() { Code = "", Tag = tag });
             }
-            return null;
+            return r;
         }
 
     }

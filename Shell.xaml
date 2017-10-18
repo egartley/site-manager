@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView Name="ShellNavigationView" Loaded="ShellNavigationView_Loaded" AlwaysShowHeader="False" OpenPaneLength="280" CompactModeThresholdWidth="560" ExpandedModeThresholdWidth="560" ItemInvoked="ShellNavigationView_ItemInvoked">
+    <NavigationView Name="ShellNavigationView" Loaded="ShellNavigationView_Loaded" AlwaysShowHeader="False" OpenPaneLength="220" CompactModeThresholdWidth="680" ExpandedModeThresholdWidth="680" ItemInvoked="ShellNavigationView_ItemInvoked">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -30,7 +30,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" Background="{StaticResource ShellFrameContentBackgroundBrush}">
-            <Frame Name="ShellFrame" Background="{StaticResource ShellFrameContentBackgroundBrush}" Padding="64,64,64,64" Navigated="ShellFrame_Navigated">
+            <Frame Name="ShellFrame" Background="{StaticResource ShellFrameContentBackgroundBrush}" Navigated="ShellFrame_Navigated">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />

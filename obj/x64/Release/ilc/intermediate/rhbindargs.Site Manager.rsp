@@ -1,0 +1,16 @@
+/osver:6.2
+/appcontainer
+"/runtime:mrt100_app"
+/eh:clr
+/pdb
+"/nativeLink:C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Native\vmath.lib"
+/customImports
+/methodBodyFolding
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\MDIL\Site Manager.mdilexe"
+"/i:C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\MDIL"
+"/out:C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Native\Site Manager.exe"
+"/pdbAltPath:C:\Users\egart\Source\Repos\Site Manager\bin\x64\Release\ilc"
+"/res:C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Native.res"
+"/i:C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\MDIL"
+/shimexe
+"/classlib:SharedLibrary"

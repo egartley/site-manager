@@ -18,13 +18,17 @@ namespace Site_Manager
         public static void LoadConfiguration()
         {
             if (ConfigurationLoaded)
+            {
                 return;
+            }
             try
             {
                 ApplicationDataCompositeValue composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_FTPCONFIG);
 
                 if (composite == null)
+                {
                     composite = new ApplicationDataCompositeValue() { [GlobalString.COMPOSITE_KEY_FTPCONFIG_USERNAME] = "", [GlobalString.COMPOSITE_KEY_FTPCONFIG_PASSWORD] = "", [GlobalString.COMPOSITE_KEY_FTPCONFIG_SERVER] = "" };
+                }
 
                 Username = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_USERNAME];
                 Password = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_PASSWORD];
@@ -43,92 +47,99 @@ namespace Site_Manager
         private static Chilkat.Ftp2 CreateFtpClient() => new Chilkat.Ftp2() { Port = 21, Username = Username, Password = Password, Hostname = Server };
 
         /// <summary>
-        /// Connects to the server
+        /// Ensures that the FTP configuration (username, password and server) has been loaded
         /// </summary>
-        public static async Task ConnectAsync()
+        private static void CheckConfiguration()
         {
             if (!ConfigurationLoaded)
+            {
                 LoadConfiguration();
+            }
+        }
 
+        /// <summary>
+        /// Connects to the server
+        /// </summary>
+        public static async Task Connect()
+        {
+            CheckConfiguration();
             await Client.ConnectAsync();
-
             Connected = true;
         }
 
         /// <summary>
         /// Disconnects from the server
         /// </summary>
-        public static async Task DisconnectAsync()
+        public static async Task Disconnect()
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
+            CheckConfiguration();
             await Client.DisconnectAsync();
-
             Connected = false;
         }
 
         /// <summary>
         /// Downloads the file to LocalFolder and returns a StorageFile representation of it
         /// </summary>
-        /// <param name="dir">Relative path of file (excluding its name)</param>
-        /// <param name="name">Name of file, including extension</param>
-        /// <returns>StorageFile representation of the download file</returns>
-        public static async Task<StorageFile> DownloadAsync(string dir, string name)
+        public static async Task<StorageFile> Download(string dir, string name)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
+            CheckConfiguration();
             await Client.GetFileAsync(dir + name, ApplicationData.Current.LocalFolder.Path + "/" + name);
-
             return await ApplicationData.Current.LocalFolder.GetFileAsync(name);
         }
 
         /// <summary>
         /// Downloads the file to LocalFolder and returns a StorageFile representation of it
         /// </summary>
-        /// <param name="dir">Relative path of file (excluding its name)</param>
-        /// <param name="name">Name of file, including extension</param>
-        /// <param name="needsConnect">Connect before downloading, then disconnect after</param>
-        /// <returns>StorageFile representation of the download file</returns>
-        public static async Task<StorageFile> DownloadAsync(string dir, string name, bool needsConnect)
+        public static async Task<StorageFile> Download(string dir, string name, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
+            CheckConfiguration();
             if (needsConnect)
-                await ConnectAsync();
-
-            StorageFile r = await DownloadAsync(dir, name);
-
+            {
+                await Connect();
+            }
+            StorageFile r = await Download(dir, name);
             if (needsConnect)
-                await DisconnectAsync();
-
+            {
+                await Disconnect();
+            }
             return r;
         }
 
-        public static async Task<bool> DeleteFileAsync(string path)
+        /// <summary>
+        /// Deletes the file (path must include the filename and all parent directories)
+        /// </summary>
+        public static async Task<bool> DeleteFile(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
+            CheckConfiguration();
             return await Client.DeleteRemoteFileAsync(path);
         }
 
-        public static async Task UploadAsync(StorageFile file, string to)
+        /// <summary>
+        /// Deletes the file (path must include the filename and all parent directories)
+        /// </summary>
+        public static async Task<bool> DeleteFile(string path, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
+            if (needsConnect)
+            {
+                await Connect();
+            }
+            return await DeleteFile(path);
+        }
 
-            if (to.EndsWith("/"))
-                to = to.Substring(0, to.Length);
-            string r = await GetWorkingDirectoryAsync();
+        /// <summary>
+        /// Uploades the file (path must not include the filename or a trailing "/")
+        /// </summary>
+        public static async Task UploadFile(StorageFile file, string path)
+        {
+            CheckConfiguration();
+            if (path.EndsWith("/"))
+            {
+                path = path.Substring(0, path.Length);
+            }
+            string r = await GetWorkingDirectory();
             try
             {
-                // System.Diagnostics.Debug.WriteLine("Changing remote dir to: " + to);
-                await Client.ChangeRemoteDirAsync(to);
-                // System.Diagnostics.Debug.WriteLine("Uploading file \"" + file.Name + "\"...");
-                // System.Diagnostics.Debug.WriteLine("Successful: " + await Client.PutFileAsync(file.Path, file.Name));
+                await Client.ChangeRemoteDirAsync(path);
             }
             catch (Exception e)
             {
@@ -136,123 +147,142 @@ namespace Site_Manager
             }
             finally
             {
-                // System.Diagnostics.Debug.WriteLine("Changing remote dir back to: " + r);
-                await SetWorkingDirectoryAsync(r);
+                await SetWorkingDirectory(r);
             }
         }
 
-        public static async Task CreateDirectoryAsync(string name)
+        /// <summary>
+        /// Creates the directory (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task CreateDirectory(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
-            await Client.CreateRemoteDirAsync(name);
+            CheckConfiguration();
+            await Client.CreateRemoteDirAsync(path);
         }
 
-        public static async Task CreateDirectoryAsync(string name, bool needsConnect)
+        /// <summary>
+        /// Creates the directory (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task CreateDirectory(string path, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
+            CheckConfiguration();
             if (needsConnect)
-                await ConnectAsync();
-
-            await CreateDirectoryAsync(name);
-
+            {
+                await Connect();
+            }
+            await CreateDirectory(path);
             if (needsConnect)
-                await DisconnectAsync();
+            {
+                await Disconnect();
+            }
         }
 
-        public static async Task DeleteDirectoryAsync(string name)
+        /// <summary>
+        /// Deletes the directory, if empty (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task DeleteDirectory(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
-            await Client.RemoveRemoteDirAsync(name);
+            CheckConfiguration();
+            await Client.RemoveRemoteDirAsync(path);
         }
 
-        public static async Task DeleteDirectoryAsync(string name, bool needsConnect)
+        /// <summary>
+        /// Deletes the directory, if empty (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task DeleteDirectory(string path, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
+            CheckConfiguration();
             if (needsConnect)
-                await ConnectAsync();
-
-            await DeleteDirectoryAsync(name);
-
+            {
+                await Connect();
+            }
+            await DeleteDirectory(path);
             if (needsConnect)
-                await DisconnectAsync();
+            {
+                await Disconnect();
+            }
         }
 
-        public static async Task<bool> GetDirectoryExistsAsync(string dir)
+        /// <summary>
+        /// Returns whether or not the directory exists (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task<bool> GetDirectoryExists(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-            string r = await GetWorkingDirectoryAsync();
-            bool exists = await SetWorkingDirectoryAsync(dir);
-            // go back to previous working directory
+            CheckConfiguration();
+            string r = await GetWorkingDirectory();
+            bool exists = await SetWorkingDirectory(path);
             await Client.ChangeRemoteDirAsync(r);
             return exists;
         }
 
-        public static async Task<bool> GetDirectoryExistsAsync(string dir, bool needsConnect)
+        /// <summary>
+        /// Returns whether or not the directory exists (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task<bool> GetDirectoryExists(string path, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
+            CheckConfiguration();
             if (needsConnect)
-                await ConnectAsync();
-
-            bool exists = await GetDirectoryExistsAsync(dir);
-
+            {
+                await Connect();
+            }
+            bool exists = await GetDirectoryExists(path);
             if (needsConnect)
-                await DisconnectAsync();
-
+            {
+                await Disconnect();
+            }
             return exists;
         }
 
-        public static async Task<string> GetWorkingDirectoryAsync()
+        /// <summary>
+        /// Returns the current "working" directory
+        /// </summary>
+        public static async Task<string> GetWorkingDirectory()
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
+            CheckConfiguration();
             return await Client.GetCurrentRemoteDirAsync();
         }
 
-        public static async Task<bool> SetWorkingDirectoryAsync(string dir)
+        /// <summary>
+        /// Sets the current "working" directory (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task<bool> SetWorkingDirectory(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
-            return await Client.ChangeRemoteDirAsync(dir);
+            CheckConfiguration();
+            return await Client.ChangeRemoteDirAsync(path);
         }
 
-        public static async Task<List<FTPItem>> GetDirectoryContentsAsync(string dir)
+        /// <summary>
+        /// Returns the contents of the directory (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task<List<FTPItem>> GetDirectoryContents(string path)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
-
-            string r = await GetWorkingDirectoryAsync();
-            await SetWorkingDirectoryAsync(dir);
+            CheckConfiguration();
+            string r = await GetWorkingDirectory();
+            await SetWorkingDirectory(path);
             List<FTPItem> list = new List<FTPItem>();
-
             for (int i = 0; i < await Client.GetDirCountAsync() - 1; i++)
+            {
                 list.Add(new FTPItem() { IsDirectory = await Client.GetIsDirectoryAsync(i), Name = await Client.GetFilenameAsync(i), Size = await Client.GetSizeAsync(i) });
-
-            await SetWorkingDirectoryAsync(r);
+            }
+            await SetWorkingDirectory(r);
             return list;
         }
 
-        public static async Task<List<FTPItem>> GetDirectoryContentsAsync(string dir, bool needsConnect)
+        /// <summary>
+        /// Returns the contents of the directory (path must start from root and include the directory name)
+        /// </summary>
+        public static async Task<List<FTPItem>> GetDirectoryContents(string path, bool needsConnect)
         {
-            if (!ConfigurationLoaded)
-                LoadConfiguration();
+            CheckConfiguration();
             if (needsConnect)
-                await ConnectAsync();
-
-            List<FTPItem> list = await GetDirectoryContentsAsync(dir);
-
+            {
+                await Connect();
+            }
+            List<FTPItem> list = await GetDirectoryContents(path);
             if (needsConnect)
-                await DisconnectAsync();
-
+            {
+                await Disconnect();
+            }
             return list;
         }
 

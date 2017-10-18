@@ -13,15 +13,9 @@ namespace Site_Manager
         private static ManagedWebPage Page;
         private static bool MadeChanges = false;
 
-        public EditWebPage()
-        {
-            InitializeComponent();
-        }
+        public EditWebPage() => InitializeComponent();
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadDetails();
-        }
+        private void Page_Loaded(object sender, RoutedEventArgs e) => LoadDetails();
 
         private void LoadDetails()
         {
@@ -60,10 +54,7 @@ namespace Site_Manager
                     PrimaryButtonText = "No",
                     SecondaryButtonText = "Yes"
                 };
-
-                ContentDialogResult click = await confirmation.ShowAsync();
-
-                if (click == ContentDialogResult.Primary)
+                if (await confirmation.ShowAsync() == ContentDialogResult.Primary)
                 {
                     // no
 
@@ -115,8 +106,9 @@ namespace Site_Manager
             {
                 string name = Utils.RandomString(8);
                 while (await FileManager.GetExists(ApplicationData.Current.TemporaryFolder, name + ".txt"))
+                {
                     name = Utils.RandomString(8); // ensure file with same name doesn't already exist (next to zero chance)
-
+                }
                 await Windows.System.Launcher.LaunchFileAsync(await FileManager.CreateTemporaryFile(contentHTML, name + ".txt"));
             }
         }
@@ -141,10 +133,7 @@ namespace Site_Manager
                 PrimaryButtonText = "No",
                 SecondaryButtonText = "I'm sure"
             };
-
-            ContentDialogResult click = await confirmation.ShowAsync();
-
-            if (click == ContentDialogResult.Primary)
+            if (await confirmation.ShowAsync() == ContentDialogResult.Primary)
             {
                 // no
 

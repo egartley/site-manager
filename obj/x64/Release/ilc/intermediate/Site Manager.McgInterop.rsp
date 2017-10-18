@@ -1,0 +1,46 @@
+/debug:pdbonly
+/nowarn:0436;0618;1668;1685;1701;1702
+/debug+
+/nostdlib+
+/optimize+
+/out:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop.dll"
+/pdb:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop.pdb"
+/platform:x64
+/warnaserror+
+/unsafe
+/nologo
+/target:library
+/define:MCG_PRE_BUILD
+/define:WIN64
+/define:AMD64
+/define:ALIGN_ACCESS
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Private.CoreLib.iltoc"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Private\System.Private.CoreLib.InteropServices.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Private.Interop.iltoc"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Private.Uri.iltoc"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Private\System.Private.CompilerServices.ICastable.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Private\System.Private.DispatchProxy.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Reflection.DispatchProxy.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Reflection.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Runtime.iltoc"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Runtime.InteropServices.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Runtime.InteropServices.WindowsRuntime.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Numerics.Vectors.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Threading.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Diagnostics.Debug.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Runtime.Extensions.iltoc"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Collections.iltoc"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.ObjectModel.iltoc"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Runtime.WindowsRuntime.dll"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\in\System.Runtime.WindowsRuntime.UI.Xaml.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.compiler\2.0.0\tools\x64\ilc\lib\Private\System.Private.CoreLib.Augments.dll"
+/r:"C:\Users\egart\.nuget\packages\microsoft.net.native.sharedlibrary-x64\2.0.0\tools\SharedLibrary\ret\AnalysisILToc\System.Private.SharedLibrary.Interop.Generated.iltoc"
+/r:"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\System.Private.Site Manager.Generated.dll"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\Adapters.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\AssemblyInfo.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\Data.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\Helpers.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\ImplTypes.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\PInvoke.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\SafeTypes.g.cs"
+"C:\Users\egart\Source\Repos\Site Manager\obj\x64\Release\ilc\intermediate\Site Manager.McgInterop\SharedStubs.g.cs"

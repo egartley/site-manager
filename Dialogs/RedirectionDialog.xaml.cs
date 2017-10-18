@@ -8,15 +8,15 @@ namespace Site_Manager
     public sealed partial class RedirectionDialog : ContentDialog
     {
 
-        string url, destination;
-        ChangeRedirectionDialog changeDialog;
+        private string URL, Destination;
+        private ChangeRedirectionDialog ChangeDialog;
 
         public RedirectionDialog(string url, ChangeRedirectionDialog changeDialog)
         {
             InitializeComponent();
             Title += url;
-            this.url = url;
-            this.changeDialog = changeDialog;
+            URL = url;
+            ChangeDialog = changeDialog;
             FetchDestination(url);
         }
 
@@ -24,17 +24,19 @@ namespace Site_Manager
         {
             DestinationTextBlock.Visibility = Visibility.Collapsed;
             DestinationProgressBar.Visibility = Visibility.Visible;
-
-            StorageFile file = await FTPManager.DownloadAsync("/go/" + url + "/", "index.html", true); // get the actual html file
+            StorageFile file = await FTPManager.Download("/go/" + url + "/", "index.html", true); // get the actual html file
             string contents = await FileManager.GetFileContents(file), delimiter = "window.location=\"";
-            string d = "";
+            string extractedDestination = "";
             if (contents.IndexOf(delimiter) != -1)
-                d = contents.Substring(contents.IndexOf(delimiter) + delimiter.Length); // extract destination
+            {
+                extractedDestination = contents.Substring(contents.IndexOf(delimiter) + delimiter.Length); // extract destination
+            }
             else
-                d = "There was an error while parsing\"";
-            DestinationTextBlock.Text = d.Substring(0, d.IndexOf("\""));
-            destination = DestinationTextBlock.Text;
-
+            {
+                extractedDestination = "There was an error while parsing\"";
+            }
+            DestinationTextBlock.Text = extractedDestination.Substring(0, extractedDestination.IndexOf("\""));
+            Destination = DestinationTextBlock.Text;
             DestinationTextBlock.Visibility = Visibility.Visible;
             DestinationProgressBar.Visibility = Visibility.Collapsed;
             IsPrimaryButtonEnabled = true;
@@ -44,16 +46,17 @@ namespace Site_Manager
         {
             // Change
             Hide();
-            changeDialog.SetDestination(destination);
-            await changeDialog.ShowAsync();
+            ChangeDialog.SetDestination(Destination);
+            await ChangeDialog.ShowAsync();
         }
 
         private async void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             // OK
             if (FTPManager.Connected)
-                await FTPManager.DisconnectAsync();
-
+            {
+                await FTPManager.Disconnect();
+            }
             Hide();
         }
     }

@@ -10,39 +10,41 @@ namespace Site_Manager
     {
         private ObservableCollection<TextBlock> ListItems = new ObservableCollection<TextBlock>();
 
-        public Home()
-        {
-            InitializeComponent();
-        }
+        public Home() => InitializeComponent();
 
         private void Page_Loaded(object sender, RoutedEventArgs e) => SyncListItems();
 
         private void SyncListItems()
         {
             WebPageManager.Load();
-
             if (WebPageManager.Pages.Count != 0)
             {
                 ListItems.Clear();
                 foreach (ManagedWebPage page in WebPageManager.Pages)
+                {
                     ListItems.Add(new TextBlock() { Text = page.RelativeURL });
+                }
             }
             else
             {
                 ListItems = new ObservableCollection<TextBlock>();
             }
-
             WebPagesListView.ItemsSource = ListItems;
         }
 
         private TextBlock GetTextBlockByURL(string url)
         {
             if (url == null)
+            {
                 throw new System.ArgumentNullException(nameof(url));
-
+            }
             foreach (TextBlock block in ListItems)
+            {
                 if (block.Text == url)
+                {
                     return block;
+                }
+            }
             return null;
         }
 
@@ -60,11 +62,11 @@ namespace Site_Manager
         private async void AddNewPageButton_Click(object sender, RoutedEventArgs e)
         {
             string input = NewPageTextBox.Text;
-
-            if (input.Length == 0)
-                return;
-
             // validate input
+            if (input.Length == 0)
+            {
+                return;
+            }
             if (!input.Contains("/"))
             {
                 await ThrowParsingError("Must contain at least one \"/\"");
@@ -94,11 +96,12 @@ namespace Site_Manager
 
             if (ListItems.Count > 1)
             {
-                WebPageManager.SortAlphabetically();
+                WebPageManager.Sort();
                 ListItems.Clear();
-
                 foreach (ManagedWebPage page in WebPageManager.Pages)
+                {
                     ListItems.Add(new TextBlock() { Text = page.RelativeURL });
+                }
             }
             // else there is only one page, no point in sorting
 
@@ -113,15 +116,21 @@ namespace Site_Manager
         private void NewPageTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
+            {
                 AddNewPageButton_Click(null, null);
+            }
         }
 
         private void NewPageTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (NewPageTextBox.Text.Length == 0)
+            {
                 AddNewPageButton.IsEnabled = false;
+            }
             else
+            {
                 AddNewPageButton.IsEnabled = true;
+            }
         }
 
         private void WebPagesListView_ItemClick(object sender, ItemClickEventArgs e)

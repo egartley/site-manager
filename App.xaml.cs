@@ -19,6 +19,7 @@ namespace Site_Manager
             InitializeComponent();
             Suspending += OnSuspending;
 
+            // USER-DEFINED INIT
             CoreManager.Load();
             // WebPageManager.Load();
         }
@@ -58,10 +59,7 @@ namespace Site_Manager
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
+        void OnNavigationFailed(object sender, NavigationFailedEventArgs e) => throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved

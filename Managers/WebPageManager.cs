@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+
 namespace Site_Manager
 {
     class WebPageManager
@@ -9,38 +9,50 @@ namespace Site_Manager
         public static ObservableCollection<ManagedWebPage> Pages = new ObservableCollection<ManagedWebPage>();
         public static int SelectedPageIndex = -1;
 
-        public static ManagedWebPage GetPage(string lookFor)
+        public static ManagedWebPage GetPage(string url)
         {
             foreach (ManagedWebPage page in Pages)
-                if (page.RelativeURL == lookFor)
+            {
+                if (page.RelativeURL == url)
+                {
                     return page;
+                }
+            }
             return null;
         }
 
-        public static ManagedWebPage GetPage(string lookFor, ManagedWebPage[] array)
+        public static ManagedWebPage GetPage(string url, ManagedWebPage[] array)
         {
             foreach (ManagedWebPage page in array)
-                if (page.RelativeURL == lookFor)
+            {
+                if (page.RelativeURL == url)
+                {
                     return page;
+                }
+            }
             return null;
         }
 
         public static ManagedWebPage GetSelectedPage() => Pages[SelectedPageIndex];
 
-        public static void SortAlphabetically()
+        public static void Sort()
         {
             string[] urls = new string[Pages.Count];
             ManagedWebPage[] originalPages = new ManagedWebPage[Pages.Count];
             Pages.CopyTo(originalPages, 0);
 
             for (int i = 0; i < Pages.Count; i++)
+            {
                 urls[i] = Pages[i].RelativeURL;
+            }
 
             Array.Sort(urls);
             Pages.Clear();
 
             foreach (string url in urls)
+            {
                 Pages.Add(GetPage(url, originalPages));
+            }
         }
 
         public static void SetSelectedPage(ManagedWebPage page) => Pages[SelectedPageIndex] = page;
@@ -51,7 +63,9 @@ namespace Site_Manager
         {
             Pages = (ObservableCollection<ManagedWebPage>)StorageManager.LoadFromFile(Pages.GetType(), GlobalString.WEBPAGE_FILENAME);
             if (Pages == null)
+            {
                 Pages = new ObservableCollection<ManagedWebPage>();
+            }
         }
 
     }
