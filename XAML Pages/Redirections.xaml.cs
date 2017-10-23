@@ -46,19 +46,15 @@ namespace Site_Manager
 
         private async Task Error(string message)
         {
-            if (string.IsNullOrEmpty(message))
-            {
-                throw new ArgumentException("message", nameof(message));
-            }
             MakeRedirectionStatusTextBlock.Foreground = Red;
-            MakeRedirectionStatusTextBlock.Text = message;
+            MakeRedirectionStatusTextBlock.Text = message ?? throw new ArgumentNullException(nameof(message));
             await Task.Delay(6000);
             Ready();
         }
 
         private async Task Success(string url)
         {
-            if (string.IsNullOrEmpty(url))
+            if (url == null)
             {
                 throw new ArgumentNullException(nameof(url));
             }
@@ -72,14 +68,15 @@ namespace Site_Manager
 
         private async Task DeployRedirection(string url, string destination)
         {
-            if (string.IsNullOrEmpty(url))
+            if (url == null)
             {
-                throw new ArgumentException("message", nameof(url));
+                throw new ArgumentNullException(nameof(url));
             }
-            if (string.IsNullOrEmpty(destination))
+            if (destination == null)
             {
-                throw new ArgumentException("message", nameof(destination));
+                throw new ArgumentNullException(nameof(destination));
             }
+
             string path = "/go/" + url;
             MakeRedirectionStatusTextBlock.Text = "Writing file...";
             StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetRedirectionHTML(destination));
@@ -115,7 +112,7 @@ namespace Site_Manager
                 {
                     continue; // exclude .htaccess
                 }
-                else if (currentItem.Name == "cgi-bin" || currentItem.Name == ".well-known" || currentItem.Name == "error")
+                else if (Utils.IsProtectedDirectory(currentItem.Name))
                 {
                     continue; // exclude protected and error page directories
                 }

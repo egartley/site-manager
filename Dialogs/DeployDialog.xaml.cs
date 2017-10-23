@@ -13,6 +13,10 @@ namespace Site_Manager
 
         public DeployDialog(ManagedWebPage page)
         {
+            if (page == null)
+            {
+                throw new ArgumentNullException(nameof(page));
+            }
             InitializeComponent();
             Pages = new ObservableCollection<ManagedWebPage>() { page };
             Opened += async (s, args) => { await Deploy(); };
@@ -21,12 +25,16 @@ namespace Site_Manager
         public DeployDialog(ObservableCollection<ManagedWebPage> pages)
         {
             InitializeComponent();
-            Pages = pages;
+            Pages = pages ?? throw new ArgumentNullException(nameof(pages));
             Opened += async (s, args) => { await Deploy(); };
         }
 
         private void Log(string message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
             LogTextBlock.Text += message + " \n";
             LogScrollViewer.ChangeView(0, LogScrollViewer.ScrollableHeight, 1);
         }
@@ -43,20 +51,27 @@ namespace Site_Manager
             }
 
             await FTPManager.Connect();
-
+            Debug.Out("Connected");
             foreach (ManagedWebPage page in Pages)
             {
-                string path = "/test" + page.RelativeURL;
+                string path = page.RelativeURL;
+                if (DeveloperOptions.GetUseTestDirectory())
+                {
+                    path = $"/test{path}";
+                }
                 string percent = DeployProgressBar.Value.ToString() + "%";
                 string msg = "Deploying \"" + page.Title + "\"...";
 
                 StatusTextBlock.Text = percent + " complete (" + i + " of " + Pages.Count + ")";
 
                 Log(msg);
-                StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetFullPageHTML(page));
-
-                await FTPManager.UploadFile(file, path);
-                await file.DeleteAsync();
+                if (!DeveloperOptions.GetBlankDeploy())
+                {
+                    StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetFullPageHTML(page));
+                    Debug.Out("Uploading... (" + file.Path + " to " + path + ")");
+                    await FTPManager.UploadFile(file, path);
+                    await file.DeleteAsync();
+                }
 
                 DeployProgressBar.Value += interval;
                 i++;

@@ -38,7 +38,6 @@ namespace Site_Manager
             // set text for every TextBox
             foreach (string tag in Tags)
             {
-                // Debug.Out("Processing \"" + tag + "\"...");
                 if (CoreManager.GetModuleByTag(tag) == null)
                 {
                     GetTextBoxByTag(tag).Text = "";
@@ -73,7 +72,6 @@ namespace Site_Manager
                 // otherwise it's not a TextBox, so ignore and continue
             }
             LoadedTextBoxes = true;
-            // Debug.Out("Successfully returned TextBoxes from CoreModules.xaml");
             return TextBoxes;
         }
 
@@ -88,14 +86,6 @@ namespace Site_Manager
                     break;
                 }
             }
-            if (r != null)
-            {
-                // Debug.Out("Retrieved the TextBox with tag of \"" + tag + "\"");
-            }
-            else
-            {
-                Debug.Out("Couldn't find a TextBox with tag of \"" + tag + "\"", "WARNING");
-            }
             return r;
         }
 
@@ -104,7 +94,7 @@ namespace Site_Manager
             // get tag of module to deploy
             string tag = (sender as Button).Tag.ToString();
             // update that module with the updated code
-            Debug.Out("Updating module \"" + tag + "\"...");
+            Debug.Out("Saving \"" + tag + "\"...", "CORE MODULES");
             CoreManager.Modules[CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag))] = new CoreModule() { Code = GetTextBoxByTag(tag).Text, Tag = tag };
             // save changes
             await CoreManager.Save();

@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Debug.cs" />
+    <Compile Include="DeveloperOptions.cs" />
     <Compile Include="GlobalString.cs" />
     <Compile Include="Deployer.cs" />
     <Compile Include="Dialogs\ChangeRedirectionDialog.xaml.cs">
@@ -112,6 +113,7 @@
     <Compile Include="Items\CoreModule.cs" />
     <Compile Include="Items\FTPConfiguration.cs" />
     <Compile Include="Items\FTPItem.cs" />
+    <Compile Include="Items\WebPageListItem.cs" />
     <Compile Include="ManagedWebPage.cs" />
     <Compile Include="Managers\CoreManager.cs" />
     <Compile Include="Managers\FileManager.cs" />

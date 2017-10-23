@@ -21,7 +21,6 @@ namespace Site_Manager
 
             // USER-DEFINED INIT
             CoreManager.Load();
-            // WebPageManager.Load();
         }
 
         /// <summary>

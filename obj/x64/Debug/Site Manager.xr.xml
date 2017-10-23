@@ -223,6 +223,7 @@
       <RootProperty Name="Style" />
       <RootProperty Name="IsItemClickEnabled" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="ItemTemplate" />
       <RootProperty Name="SelectionMode" />
       <RootEvent Name="ItemClick" />
     </RootType>
@@ -299,6 +300,10 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Documents.Run" />
     <RootType FullName="Windows.UI.Xaml.Documents.LineBreak" />
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension" />
     <RootType FullName="Site_Manager.Home" />
     <RootType FullName="Windows.UI.Xaml.Media.Animation.DoubleAnimation">
       <RootProperty Name="To" />

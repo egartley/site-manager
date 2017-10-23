@@ -19,6 +19,7 @@ namespace Site_Manager
         {
             if (ConfigurationLoaded)
             {
+                Debug.Out("FTP configuration already loaded!", "WARNING");
                 return;
             }
             try
@@ -139,7 +140,12 @@ namespace Site_Manager
             string r = await GetWorkingDirectory();
             try
             {
+                if (!await GetDirectoryExists(path))
+                {
+                    await CreateDirectory(path);
+                }
                 await Client.ChangeRemoteDirAsync(path);
+                await Client.PutFileAsync(file.Path, path + "/" + file.Name);
             }
             catch (Exception e)
             {

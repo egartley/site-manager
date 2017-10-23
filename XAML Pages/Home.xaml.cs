@@ -8,7 +8,7 @@ namespace Site_Manager
 {
     public sealed partial class Home : Page
     {
-        private ObservableCollection<TextBlock> ListItems = new ObservableCollection<TextBlock>();
+        private ObservableCollection<WebPageListItem> ListItems = new ObservableCollection<WebPageListItem>();
 
         public Home() => InitializeComponent();
 
@@ -22,27 +22,27 @@ namespace Site_Manager
                 ListItems.Clear();
                 foreach (ManagedWebPage page in WebPageManager.Pages)
                 {
-                    ListItems.Add(new TextBlock() { Text = page.RelativeURL });
+                    ListItems.Add(new WebPageListItem(page.Title, page.RelativeURL, page.GetLastUpdatedAsString()));
                 }
             }
             else
             {
-                ListItems = new ObservableCollection<TextBlock>();
+                ListItems = new ObservableCollection<WebPageListItem>();
             }
             WebPagesListView.ItemsSource = ListItems;
         }
 
-        private TextBlock GetTextBlockByURL(string url)
+        private WebPageListItem GetWebPageListItemByURL(string url)
         {
             if (url == null)
             {
                 throw new System.ArgumentNullException(nameof(url));
             }
-            foreach (TextBlock block in ListItems)
+            foreach (WebPageListItem item in ListItems)
             {
-                if (block.Text == url)
+                if (item.URL == url)
                 {
-                    return block;
+                    return item;
                 }
             }
             return null;
@@ -89,7 +89,7 @@ namespace Site_Manager
             }
 
             // add new TextBlock (list item) to ListItems collection
-            ListItems.Add(new TextBlock() { Text = input });
+            ListItems.Add(new WebPageListItem("Untitled", input, "Never"));
 
             // also add a new ManagedWebPage to WebPageManager.Pages
             WebPageManager.Pages.Add(new ManagedWebPage(input));
@@ -100,10 +100,10 @@ namespace Site_Manager
                 ListItems.Clear();
                 foreach (ManagedWebPage page in WebPageManager.Pages)
                 {
-                    ListItems.Add(new TextBlock() { Text = page.RelativeURL });
+                    ListItems.Add(new WebPageListItem(page.Title, page.RelativeURL, page.GetLastUpdatedAsString()));
                 }
             }
-            // else there is only one page, no point in sorting
+            // else there is only one page, so there is no point in sorting
 
             // save new page
             WebPageManager.Save();
@@ -117,6 +117,7 @@ namespace Site_Manager
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
+                // pressed enter
                 AddNewPageButton_Click(null, null);
             }
         }
@@ -137,8 +138,7 @@ namespace Site_Manager
         {
             // TODO: right click context menu for removing/deploying (maybe)
 
-            WebPageManager.SelectedPageIndex = WebPageManager.Pages.IndexOf(WebPageManager.GetPage(((TextBlock)e.ClickedItem).Text));
-            // go to edit page with drill animation
+            WebPageManager.SelectedPageIndex = WebPageManager.Pages.IndexOf(WebPageManager.GetPage(((WebPageListItem)e.ClickedItem).URL));
             Frame.Navigate(typeof(EditWebPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
