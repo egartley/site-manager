@@ -20,12 +20,6 @@
                 </TransitionCollection>
             </Setter.Value>
         </Setter>
-        <Setter Property="RenderTransformOrigin" Value=".5,.5" />
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <RotateTransform />
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="ListViewBorderStyle" TargetType="ListView">
@@ -112,7 +106,7 @@
             <AcrylicBrush x:Key="ShellFrameContentBackgroundBrush"
                           BackgroundSource="HostBackdrop"
                           TintColor="Black"
-                          TintOpacity="0.8075"
+                          TintOpacity="0.7575"
                           FallbackColor="Black"/>
         </ResourceDictionary>
 

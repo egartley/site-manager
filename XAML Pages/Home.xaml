@@ -10,33 +10,60 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}">Managed Web Pages</TextBlock>
-            <ListView Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" Grid.Column="0" Width="450" Height="500" HorizontalAlignment="Left" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0">
+        <Grid Grid.Column="0" MaxWidth="900">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource ContentTitleTextBlockStyle}">Managed Web Pages</TextBlock>
+            <ListView Grid.Row="1" Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" MinHeight="300" MaxHeight="600" HorizontalAlignment="Stretch" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="site_manager:WebPageListItem">
                         <StackPanel Margin="0,6,0,12">
-                            <TextBlock Text="{x:Bind PageTitle}" FontWeight="SemiBold" FontSize="21" />
-                            <TextBlock Text="{x:Bind LastModified}" FontSize="12" />
+                            <TextBlock Text="{x:Bind PageTitle}" FontWeight="SemiBold" FontSize="19" />
+                            <TextBlock Text="{x:Bind URL}" FontSize="12" FontWeight="SemiBold" Margin="0,3,0,0" Foreground="{ThemeResource AccentButtonBackground}" />
+                            <TextBlock Text="{x:Bind LastModified}" FontSize="12" Margin="0,3,0,0" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="NewPageTextBox" Margin="0,12,0,0" Width="400" HorizontalAlignment="Left" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" KeyUp="NewPageTextBox_KeyUp"></TextBox>
-                <Button Name="AddNewPageButton" Padding="0" VerticalAlignment="Stretch" Margin="14,9,0,0" Click="AddNewPageButton_Click" Style="{StaticResource ContentOnlyButtonStyle}">&#xE109;</Button>
-            </StackPanel>
-            <TextBlock Name="AddNewPageStatusTextBlock" Foreground="Red" Margin="12,12,0,0" Visibility="Collapsed" />
-        </StackPanel>
+            <Grid Margin="0,12,0,0" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Name="NewPageTextBox" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" KeyUp="NewPageTextBox_KeyUp" />
+                <Button Grid.Column="1" Name="AddNewPageButton" Margin="8,0,0,0" Height="32" Width="72" Click="AddNewPageButton_Click" Style="{StaticResource ButtonRevealStyle}">Add</Button>
+            </Grid>
+            <TextBlock Grid.Row="3" Name="AddNewPageStatusTextBlock" Foreground="Red" FontWeight="Bold" Margin="4,12,0,0" Visibility="Collapsed">
+                <TextBlock.Transitions>
+                    <TransitionCollection>
+                        <ContentThemeTransition />
+                    </TransitionCollection>
+                </TextBlock.Transitions>
+            </TextBlock>
+        </Grid>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Name="DeployButton" Click="DeployButton_Click" Visibility="Visible" FontSize="16" Style="{StaticResource ContentOnlyButtonStyle}">
                 <Grid>
-                    <Border CornerRadius="100" Width="200" Height="200" Background="{ThemeResource AccentButtonBackground}">
-                        <TextBlock VerticalAlignment="Center" FontWeight="Bold" TextAlignment="Center" FontSize="26" LineHeight="36"><Run>Deploy</Run><LineBreak/><Run>Everything</Run></TextBlock>
+                    <Border CornerRadius="85" Width="170" Height="170" Background="{ThemeResource AccentButtonBackground}">
+                        <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center" FontSize="26" LineHeight="35">
+                            <Run>Deploy</Run><LineBreak/>
+                            <Run>Everything</Run>
+                        </TextBlock>
                     </Border>
+                    <Ellipse Width="172" Height="172" Stroke="Black" Opacity="0.4" StrokeThickness="2" />
+                    <Ellipse Width="174" Height="174" Stroke="Black" Opacity="0.3" StrokeThickness="2" />
+                    <Ellipse Width="176" Height="176" Stroke="Black" Opacity="0.2" StrokeThickness="2" />
+                    <Ellipse Width="178" Height="178" Stroke="Black" Opacity="0.1" StrokeThickness="2" />
                 </Grid>
             </Button>
         </StackPanel>

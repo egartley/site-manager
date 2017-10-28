@@ -110,7 +110,7 @@
                 <TextBlock Name="LastUpdatedTextBlock" Grid.Column="1" Grid.Row="3" Style="{StaticResource DetailTextBlockStyle}" Text="July 4, 1776 at 12:00 PM" />
                 <TextBlock Name="LastSubmittedTextBlock" Grid.Column="1" Grid.Row="4" Style="{StaticResource DetailTextBlockStyle}" Text="January 20, 2017 at 12:00 PM" />
             </Grid>
-            <StackPanel Margin="4,26,0,0">
+            <StackPanel Margin="0,32,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Button Name="RemoveButton" Click="RemoveButton_Click" Content="&#xE74D;" Margin="0,0,14,0" Style="{StaticResource ContentOnlyButtonStyle}" FontSize="32" ToolTipService.ToolTip="Delete this Page" />
                     <Button Name="SaveChangesButton" Click="SaveChangesButton_Click" Style="{StaticResource ContentOnlyButtonStyle}" Content="&#xE74E;" IsEnabled="False" Margin="0,0,14,0" ToolTipService.ToolTip="Save Changes" FontSize="32" />

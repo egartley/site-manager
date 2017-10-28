@@ -89,8 +89,7 @@
       <RootProperty Name="Visibility" />
       <RootProperty Name="Tag" />
       <RootProperty Name="FontSize" />
-      <RootProperty Name="Padding" />
-      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Height" />
       <RootProperty Name="RenderTransformOrigin" />
       <RootProperty Name="RenderTransform" />
       <RootEvent Name="Click" />
@@ -204,6 +203,7 @@
       <RootProperty Name="ColumnDefinitions" />
       <RootProperty Name="Name" />
       <RootProperty Name="RowDefinitions" />
+      <RootProperty Name="MaxWidth" />
       <RootProperty Name="Margin" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
@@ -212,18 +212,19 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.UIElement">
       <RootProperty Name="Transitions" />
-      <RootProperty Name="RenderTransformOrigin" />
       <RootProperty Name="RenderTransform" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="Name" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Height" />
+      <RootProperty Name="MinHeight" />
+      <RootProperty Name="MaxHeight" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Style" />
       <RootProperty Name="IsItemClickEnabled" />
       <RootProperty Name="Margin" />
       <RootProperty Name="ItemTemplate" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
       <RootProperty Name="SelectionMode" />
       <RootEvent Name="ItemClick" />
     </RootType>
@@ -262,7 +263,6 @@
       <RootMethod Name="SetAccessibilityView" />
     </RootType>
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.TemplateBindingExtension" />
-    <RootType FullName="Windows.UI.Xaml.Media.RotateTransform" />
     <RootType FullName="Windows.UI.Xaml.Media.Animation.RepositionThemeTransition" />
     <RootType FullName="Windows.UI.Xaml.Media.Animation.ReorderThemeTransition" />
     <RootType FullName="Windows.UI.Xaml.Media.AcrylicBrush">
@@ -298,6 +298,13 @@
       <RootProperty Name="Background" />
       <RootProperty Name="Child" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Shapes.Ellipse">
+      <RootProperty Name="Width" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Stroke" />
+      <RootProperty Name="Opacity" />
+      <RootProperty Name="StrokeThickness" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Documents.Run" />
     <RootType FullName="Windows.UI.Xaml.Documents.LineBreak" />
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
@@ -309,6 +316,7 @@
       <RootProperty Name="To" />
       <RootProperty Name="RepeatBehavior" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.RotateTransform" />
     <RootType FullName="Windows.UI.Xaml.Media.Animation.AddDeleteThemeTransition" />
     <RootType FullName="Windows.UI.Xaml.Controls.ToggleSwitch">
       <RootProperty Name="Name" />
