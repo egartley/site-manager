@@ -14,7 +14,7 @@ namespace Site_Manager
 
         public static async void Load()
         {
-            Debug.Out("Loading modules...");
+            Debug.Out("Loading modules...", "CORE MANAGER");
             if (Loaded)
             {
                 Debug.Out("Modules have already been loaded!", "WARNING");
@@ -23,11 +23,11 @@ namespace Site_Manager
 
             try
             {
-                Debug.Out("Getting the \"" + GlobalString.CORE_MODULES_FILENAME + "\" file...");
+                Debug.Out("Getting \"" + GlobalString.CORE_MODULES_FILENAME + "\"...", "CORE MANAGER");
                 StorageFile file = await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME);
                 if (file == null)
                 {
-                    Debug.Out("The \"" + GlobalString.CORE_MODULES_FILENAME + "\" file did not exist, creating an empty collection of modules", "WARNING");
+                    Debug.Out("\"" + GlobalString.CORE_MODULES_FILENAME + "\" did not exist, creating an empty collection of modules and writing to it...", "WARNING");
                     // create collection of empty modules
                     Modules = GetEmptyModules();
                     // save default modules
@@ -38,38 +38,38 @@ namespace Site_Manager
                     return;
                 }
 
-                Debug.Out("Reading \"" + GlobalString.CORE_MODULES_FILENAME + "\" file...");
+                Debug.Out("Reading \"" + GlobalString.CORE_MODULES_FILENAME + "\"...", "CORE MANAGER");
                 // recursively load from file
-                IList<string> lines = await FileIO.ReadLinesAsync(file);
-                foreach (string line in lines)
+                CoreModule[] modules = Newtonsoft.Json.JsonConvert.DeserializeObject<CoreModule[]>(await FileManager.GetFileContents(file));
+                foreach (CoreModule mod in modules)
                 {
-                    Modules.Add(new CoreModule(line));
+                    Modules.Add(mod);
                 }
 
-                // don't bother loading again, will always be in memory (right?!)
+                // don't bother loading again, will always be in memory (right?)
                 Loaded = true;
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
+                Debug.Out(e.StackTrace, "EXCEPTION");
+                Debug.Out(e.Message, "EXCEPTION");
             }
         }
 
         public static async Task Save()
         {
-            Debug.Out("Saving modules...");
-            string[] asStrings = new string[Modules.Count];
-            for (int i = 0; i < asStrings.Length; i++)
-            {
-                asStrings[i] = Modules[i].GetAsString();
-            }
+            Debug.Out("Saving modules...", "CORE MANAGER");
+            CoreModule[] array = new CoreModule[Modules.Count];
+            Modules.CopyTo(array, 0);
+
             if (!await FileManager.GetExists(GlobalString.CORE_MODULES_FILENAME))
             {
-                Debug.Out("The \"" + GlobalString.CORE_MODULES_FILENAME + "\" file doesn't exist, so will create an empty one", "WARNING");
+                Debug.Out("\"" + GlobalString.CORE_MODULES_FILENAME + "\" doesn't exist, creating an empty one...", "WARNING");
                 await FileManager.CreateStorageFile(GlobalString.CORE_MODULES_FILENAME);
             }
-            Debug.Out("Writing to " + GlobalString.CORE_MODULES_FILENAME + "\" file ...");
-            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME), asStrings);
+
+            Debug.Out("Writing to " + GlobalString.CORE_MODULES_FILENAME + "\" ...", "CORE MANAGER");
+            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME), Newtonsoft.Json.JsonConvert.SerializeObject(array));
         }
 
         public static CoreModule GetModuleByTag(string tag)
@@ -94,7 +94,7 @@ namespace Site_Manager
             ObservableCollection<CoreModule> r = new ObservableCollection<CoreModule>();
             foreach (string tag in CoreModules.Tags)
             {
-                r.Add(new CoreModule() { Code = "", Tag = tag });
+                r.Add(new CoreModule(tag));
             }
             return r;
         }

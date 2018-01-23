@@ -44,8 +44,8 @@
         <StackPanel Margin="0,52,0,0">
             <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,16">Developer Options</TextBlock>
             <StackPanel Orientation="Vertical">
-                <CheckBox x:ConnectionId='2' Name="BlankDeployCheckBox" Content="Blank deploy"                                                                                 />
-                <CheckBox x:ConnectionId='3' Name="UseTestDirectoryCheckBox" Content="Use &quot;/test&quot; directory"                                                                                           />
+                <CheckBox x:ConnectionId='2' Name="BlankDeployCheckBox" Content="Blank deploy"                                   />
+                <CheckBox x:ConnectionId='3' Name="UseTestDirectoryCheckBox" Content="Use &quot;/test&quot; directory"                                        />
             </StackPanel>
         </StackPanel>
     </StackPanel>

@@ -9,14 +9,19 @@ namespace Site_Manager
     public sealed partial class Home : Page
     {
         private ObservableCollection<WebPageListItem> ListItems = new ObservableCollection<WebPageListItem>();
+        private ObservableCollection<string> AutoSuggestItems = new ObservableCollection<string>();
+        private ObservableCollection<string> OriginalAutoSuggestItems = new ObservableCollection<string>();
 
         public Home() => InitializeComponent();
 
-        private void Page_Loaded(object sender, RoutedEventArgs e) => SyncListItems();
+        private async void Page_Loaded(object sender, RoutedEventArgs e) => await SyncListItems();
 
-        private void SyncListItems()
+        private async Task SyncListItems()
         {
-            WebPageManager.Load();
+            if (!WebPageManager.Loaded)
+            {
+                await WebPageManager.Load();
+            }
             if (WebPageManager.Pages.Count != 0)
             {
                 ListItems.Clear();
@@ -30,6 +35,29 @@ namespace Site_Manager
                 ListItems = new ObservableCollection<WebPageListItem>();
             }
             WebPagesListView.ItemsSource = ListItems;
+
+            // build autosuggestbox itemsource
+            AutoSuggestItems.Clear();
+            OriginalAutoSuggestItems.Clear();
+            foreach (ManagedWebPage page in WebPageManager.Pages)
+            {
+                AutoSuggestItems.Add(page.RelativeURL);
+                OriginalAutoSuggestItems.Add(page.RelativeURL);
+            }
+            NewPageTextBox.ItemsSource = AutoSuggestItems;
+        }
+
+        private void UpdateAutoSuggestItems(string query)
+        {
+            AutoSuggestItems.Clear();
+            foreach (string url in OriginalAutoSuggestItems)
+            {
+                if (url.StartsWith(query))
+                {
+                    AutoSuggestItems.Add(url);
+                }
+            }
+            NewPageTextBox.ItemsSource = AutoSuggestItems;
         }
 
         private WebPageListItem GetWebPageListItemByURL(string url)
@@ -48,51 +76,56 @@ namespace Site_Manager
             return null;
         }
 
-        private async Task ThrowParsingError(string message)
+        private async Task ThrowValidationError(string message)
         {
-            AddNewPageStatusTextBlock.Visibility = Visibility.Visible;
-            AddNewPageStatusTextBlock.Text = "Parsing error! (" + message + ")";
+            AddNewPageStatusTextBlock.Text = message;
 
-            // display error for 6 seconds
-            await Task.Delay(6000);
+            // display error for 4.275 seconds
+            await Task.Delay(4275);
 
-            AddNewPageStatusTextBlock.Visibility = Visibility.Collapsed;
+            AddNewPageStatusTextBlock.Text = "";
         }
 
         private async void AddNewPageButton_Click(object sender, RoutedEventArgs e)
         {
-            string input = NewPageTextBox.Text;
+            string url = NewPageTextBox.Text;
             // validate input
-            if (input.Length == 0)
+            if (url.Length == 0)
             {
+                // don't throw a validation error, because it is pretty obvious what the problem is
                 return;
             }
-            if (!input.Contains("/"))
+            if (!url.StartsWith("/"))
             {
-                await ThrowParsingError("Must contain at least one \"/\"");
+                await ThrowValidationError("Must start with \"/\" (relative to \"https://egartley.net\")");
                 return;
             }
-            if (!input.StartsWith("/"))
+            if (!url.EndsWith("/"))
             {
-                await ThrowParsingError("Must start with a \"/\"");
+                await ThrowValidationError("Must end with \"/\"");
                 return;
             }
-            if (input.Contains(" "))
+            if (url.Contains(" "))
             {
-                await ThrowParsingError("Cannot contain spaces");
+                await ThrowValidationError("Cannot contain spaces (consider using \"-\" or \"%20\" instead)");
                 return;
             }
-            if (!Utils.IsValidURL(input))
+            if (!Utils.IsValidURL(url))
             {
-                await ThrowParsingError("Invalid URL");
+                await ThrowValidationError("Invalid URL");
+                return;
+            }
+            if (OriginalAutoSuggestItems.Contains(url))
+            {
+                await ThrowValidationError("That page already exists");
                 return;
             }
 
             // add new TextBlock (list item) to ListItems collection
-            ListItems.Add(new WebPageListItem("Untitled", input, "Never"));
+            ListItems.Add(new WebPageListItem("Untitled Page", url, "Never"));
 
             // also add a new ManagedWebPage to WebPageManager.Pages
-            WebPageManager.Pages.Add(new ManagedWebPage(input));
+            WebPageManager.Pages.Add(new ManagedWebPage(url));
 
             if (ListItems.Count > 1)
             {
@@ -103,10 +136,10 @@ namespace Site_Manager
                     ListItems.Add(new WebPageListItem(page.Title, page.RelativeURL, page.GetLastUpdatedAsString()));
                 }
             }
-            // else there is only one page, so there is no point in sorting
+            // otherwise there is only one page, so there is no point in sorting
 
             // save new page
-            WebPageManager.Save();
+            await WebPageManager.Save();
 
             // update UI
             NewPageTextBox.Text = "";
@@ -122,7 +155,7 @@ namespace Site_Manager
             }
         }
 
-        private void NewPageTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void NewPageTextBox_TextChanged(object sender, AutoSuggestBoxTextChangedEventArgs e)
         {
             if (NewPageTextBox.Text.Length == 0)
             {
@@ -131,17 +164,31 @@ namespace Site_Manager
             else
             {
                 AddNewPageButton.IsEnabled = true;
+                if (e.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+                {
+                    UpdateAutoSuggestItems(NewPageTextBox.Text);
+                }
             }
+        }
+
+        private void NewPageTextBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            // do nothing (since suggestions are pages that already exist, cannot create a new page with the same url)
+        }
+
+        private void NewPageTextBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // set the textbox's text to whatever was chosen
+            NewPageTextBox.Text = args.SelectedItem as string;
         }
 
         private void WebPagesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // TODO: right click context menu for removing/deploying (maybe)
-
             WebPageManager.SelectedPageIndex = WebPageManager.Pages.IndexOf(WebPageManager.GetPage(((WebPageListItem)e.ClickedItem).URL));
             Frame.Navigate(typeof(EditWebPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
         private async void DeployButton_Click(object sender, RoutedEventArgs e) => await Deployer.DeployAll();
+
     }
 }

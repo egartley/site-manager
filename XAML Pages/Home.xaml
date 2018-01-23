@@ -8,6 +8,10 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
+    <Page.Resources>
+        <site_manager:StringFormatConverter x:Key="StringFormatConverter" />
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -24,13 +28,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Style="{StaticResource ContentTitleTextBlockStyle}">Managed Web Pages</TextBlock>
-            <ListView Grid.Row="1" Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" MinHeight="300" MaxHeight="600" HorizontalAlignment="Stretch" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0">
+            <ListView Grid.Row="1" Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" MinHeight="300" MaxHeight="750" HorizontalAlignment="Stretch" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="site_manager:WebPageListItem">
-                        <StackPanel Margin="0,6,0,12">
-                            <TextBlock Text="{x:Bind PageTitle}" FontWeight="SemiBold" FontSize="19" />
-                            <TextBlock Text="{x:Bind URL}" FontSize="12" FontWeight="SemiBold" Margin="0,3,0,0" Foreground="{ThemeResource AccentButtonBackground}" />
-                            <TextBlock Text="{x:Bind LastModified}" FontSize="12" Margin="0,3,0,0" />
+                        <StackPanel Margin="0,14,0,14">
+                            <TextBlock Text="{x:Bind URL}" FontWeight="SemiBold" FontSize="19" />
+                            <TextBlock Text="{x:Bind PageTitle}" FontSize="12" Margin="0,3,0,0" Foreground="{ThemeResource AccentButtonBackground}" />
+                            <TextBlock Text="{x:Bind LastUpdated, Converter={StaticResource StringFormatConverter}, ConverterParameter='Last updated: {0}'}" FontSize="12" Margin="0,3,0,0" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -40,10 +44,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Name="NewPageTextBox" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" KeyUp="NewPageTextBox_KeyUp" />
+                <AutoSuggestBox Name="NewPageTextBox" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" QuerySubmitted="NewPageTextBox_QuerySubmitted" SuggestionChosen="NewPageTextBox_SuggestionChosen" KeyUp="NewPageTextBox_KeyUp"  />
                 <Button Grid.Column="1" Name="AddNewPageButton" Margin="8,0,0,0" Height="32" Width="72" Click="AddNewPageButton_Click" Style="{StaticResource ButtonRevealStyle}">Add</Button>
             </Grid>
-            <TextBlock Grid.Row="3" Name="AddNewPageStatusTextBlock" Foreground="Red" FontWeight="Bold" Margin="4,12,0,0" Visibility="Collapsed">
+            <TextBlock Grid.Row="3" Name="AddNewPageStatusTextBlock" Foreground="Red" FontWeight="Bold" Margin="4,12,0,0">
                 <TextBlock.Transitions>
                     <TransitionCollection>
                         <ContentThemeTransition />
@@ -56,14 +60,9 @@
                 <Grid>
                     <Border CornerRadius="85" Width="170" Height="170" Background="{ThemeResource AccentButtonBackground}">
                         <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center" FontSize="26" LineHeight="35">
-                            <Run>Deploy</Run><LineBreak/>
-                            <Run>Everything</Run>
+                            <Run>Deploy</Run><LineBreak/><Run>Everything</Run>
                         </TextBlock>
                     </Border>
-                    <Ellipse Width="172" Height="172" Stroke="Black" Opacity="0.4" StrokeThickness="2" />
-                    <Ellipse Width="174" Height="174" Stroke="Black" Opacity="0.3" StrokeThickness="2" />
-                    <Ellipse Width="176" Height="176" Stroke="Black" Opacity="0.2" StrokeThickness="2" />
-                    <Ellipse Width="178" Height="178" Stroke="Black" Opacity="0.1" StrokeThickness="2" />
                 </Grid>
             </Button>
         </StackPanel>

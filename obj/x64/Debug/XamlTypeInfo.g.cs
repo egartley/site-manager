@@ -180,7 +180,7 @@ namespace Site_Manager.Site_Manager_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[13];
+            _typeNameTable = new string[15];
             _typeNameTable[0] = "Site_Manager.ChangeRedirectionDialog";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.ContentDialog";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.ContentControl";
@@ -191,11 +191,13 @@ namespace Site_Manager.Site_Manager_XamlTypeInfo
             _typeNameTable[7] = "Windows.UI.Xaml.Controls.UserControl";
             _typeNameTable[8] = "Site_Manager.CoreModules";
             _typeNameTable[9] = "Site_Manager.EditWebPage";
-            _typeNameTable[10] = "Site_Manager.Home";
-            _typeNameTable[11] = "Site_Manager.Redirections";
-            _typeNameTable[12] = "Site_Manager.Settings";
+            _typeNameTable[10] = "Site_Manager.StringFormatConverter";
+            _typeNameTable[11] = "Object";
+            _typeNameTable[12] = "Site_Manager.Home";
+            _typeNameTable[13] = "Site_Manager.Redirections";
+            _typeNameTable[14] = "Site_Manager.Settings";
 
-            _typeTable = new global::System.Type[13];
+            _typeTable = new global::System.Type[15];
             _typeTable[0] = typeof(global::Site_Manager.ChangeRedirectionDialog);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.ContentDialog);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.ContentControl);
@@ -206,9 +208,11 @@ namespace Site_Manager.Site_Manager_XamlTypeInfo
             _typeTable[7] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
             _typeTable[8] = typeof(global::Site_Manager.CoreModules);
             _typeTable[9] = typeof(global::Site_Manager.EditWebPage);
-            _typeTable[10] = typeof(global::Site_Manager.Home);
-            _typeTable[11] = typeof(global::Site_Manager.Redirections);
-            _typeTable[12] = typeof(global::Site_Manager.Settings);
+            _typeTable[10] = typeof(global::Site_Manager.StringFormatConverter);
+            _typeTable[11] = typeof(global::System.Object);
+            _typeTable[12] = typeof(global::Site_Manager.Home);
+            _typeTable[13] = typeof(global::Site_Manager.Redirections);
+            _typeTable[14] = typeof(global::Site_Manager.Settings);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -246,9 +250,10 @@ namespace Site_Manager.Site_Manager_XamlTypeInfo
         private object Activate_5_Shell() { return new global::Site_Manager.Shell(); }
         private object Activate_8_CoreModules() { return new global::Site_Manager.CoreModules(); }
         private object Activate_9_EditWebPage() { return new global::Site_Manager.EditWebPage(); }
-        private object Activate_10_Home() { return new global::Site_Manager.Home(); }
-        private object Activate_11_Redirections() { return new global::Site_Manager.Redirections(); }
-        private object Activate_12_Settings() { return new global::Site_Manager.Settings(); }
+        private object Activate_10_StringFormatConverter() { return new global::Site_Manager.StringFormatConverter(); }
+        private object Activate_12_Home() { return new global::Site_Manager.Home(); }
+        private object Activate_13_Redirections() { return new global::Site_Manager.Redirections(); }
+        private object Activate_14_Settings() { return new global::Site_Manager.Settings(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -315,23 +320,34 @@ namespace Site_Manager.Site_Manager_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 10:   //  Site_Manager.Home
-                userType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_10_Home;
+            case 10:   //  Site_Manager.StringFormatConverter
+                userType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_10_StringFormatConverter;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 11:   //  Site_Manager.Redirections
+            case 11:   //  Object
+                xamlType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 12:   //  Site_Manager.Home
                 userType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_11_Redirections;
+                userType.Activator = Activate_12_Home;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 12:   //  Site_Manager.Settings
+            case 13:   //  Site_Manager.Redirections
                 userType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_12_Settings;
+                userType.Activator = Activate_13_Redirections;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 14:   //  Site_Manager.Settings
+                userType = new global::Site_Manager.Site_Manager_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_14_Settings;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

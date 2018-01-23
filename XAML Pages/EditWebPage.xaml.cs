@@ -2,7 +2,6 @@
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Site_Manager
@@ -11,7 +10,6 @@ namespace Site_Manager
     {
 
         private static ManagedWebPage Page;
-        private static bool MadeChanges = false;
 
         public EditWebPage() => InitializeComponent();
 
@@ -23,6 +21,7 @@ namespace Site_Manager
 
             TitleTextBox.Text = Page.Title;
             RelativeURLTextBlock.Text = Page.RelativeURL;
+            ToolTipService.SetToolTip(RelativeURLTextBlock, new ToolTip() { Content = Page.RelativeURL });
             IsRootTextBlock.Text = Page.IsRoot.ToString().ToLower();
             LastUpdatedTextBlock.Text = Page.GetLastUpdatedAsString();
             LastSubmittedTextBlock.Text = Page.GetLastSubmittedAsString();
@@ -30,54 +29,13 @@ namespace Site_Manager
             HeaderHTMLTextBox.Text = Page.AdditionalHeaderHTML;
         }
 
-        private void TextChanged(object sender, KeyRoutedEventArgs e)
+        private void OkayButton_Click(object sender, RoutedEventArgs e)
         {
-            MadeChanges = true;
-            SaveChangesButton.IsEnabled = true;
-        }
-
-        private void HTMLTextBox_Paste(object sender, TextControlPasteEventArgs e)
-        {
-            // stupid fix for MadeChanges after pasting text (ex. from Sublime Text)
-            TextChanged(sender, null);
-        }
-
-        private async void OkayButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MadeChanges)
-            {
-                // changes were made that weren't saved, confirm with user
-                ContentDialog confirmation = new ContentDialog
-                {
-                    Title = "Are you sure?",
-                    Content = "Would you like to save the changes you made?",
-                    PrimaryButtonText = "No",
-                    SecondaryButtonText = "Yes"
-                };
-                if (await confirmation.ShowAsync() == ContentDialogResult.Primary)
-                {
-                    // no
-
-                    // go back to home after dismissing dialog (after this "if" statement)
-                    confirmation.Hide();
-                }
-                else
-                {
-                    // yes
-
-                    // dismiss dialog
-                    confirmation.Hide();
-                    // don't go back home
-                    return;
-                }
-            }
-            // else, no changes were made, so just go back home
-
             // go back to home page with drill animation
             Frame.Navigate(typeof(Home), null, new DrillInNavigationTransitionInfo());
         }
 
-        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
             Page.Updated();
             Page.Title = TitleTextBox.Text;
@@ -89,9 +47,8 @@ namespace Site_Manager
             Page.AdditionalHeaderHTML = t;
 
             WebPageManager.SetSelectedPage(Page);
-            WebPageManager.Save();
-
-            MadeChanges = false;
+            await WebPageManager.Save();
+            
             SaveChangesButton.IsEnabled = false;
 
             LoadDetails();
@@ -116,7 +73,7 @@ namespace Site_Manager
         private async void DeployButton_Click(object sender, RoutedEventArgs e)
         {
             WebPageManager.SetSelectedPage(Page);
-            WebPageManager.Save();
+            await WebPageManager.Save();
 
             DeployDialog dialog = new DeployDialog(WebPageManager.GetSelectedPage());
             await dialog.ShowAsync();
@@ -146,13 +103,12 @@ namespace Site_Manager
 
                 // actually remove the page
                 WebPageManager.Pages.Remove(Page);
-                WebPageManager.Save();
+                await WebPageManager.Save();
                 // dismiss dialog
                 confirmation.Hide();
                 // go back home with drill animation
                 Frame.Navigate(typeof(Home), null, new DrillInNavigationTransitionInfo());
             }
         }
-
     }
 }

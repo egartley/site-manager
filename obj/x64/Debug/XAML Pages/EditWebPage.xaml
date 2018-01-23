@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-                         >
+                        >
 
     <Page.Resources>
         <Style x:Key="DetailTitleTextBlockStyle" TargetType="TextBlock">
@@ -21,7 +21,7 @@
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Margin" Value="12,0,0,8" />
             <Setter Property="MaxWidth" Value="300" />
-            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
             <Setter Property="Transitions">
                 <Setter.Value>
                     <TransitionCollection>
@@ -82,7 +82,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <StackPanel x:ConnectionId='3' Name="LeftPanel" Grid.Column="0" Grid.Row="0">
             <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,32" Text="Edit Page Details" />
             <Grid x:ConnectionId='7' Name="DetailsGrid">
@@ -104,7 +104,7 @@
                 <TextBlock Grid.Row="3" Style="{StaticResource DetailTitleTextBlockStyle}">Last Updated:</TextBlock>
                 <TextBlock Grid.Row="4" Style="{StaticResource DetailTitleTextBlockStyle}">Last Submitted:</TextBlock>
 
-                <TextBox x:ConnectionId='13' Name="TitleTextBox" Grid.Column="1" Grid.Row="0"                     FontSize="18" Margin="12,0,0,8" MinWidth="260" HorizontalAlignment="Left" Text="United States of America" />
+                <TextBox x:ConnectionId='13' Name="TitleTextBox" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="12,0,0,8" MinWidth="260" MaxWidth="300" HorizontalAlignment="Left" Text="United States of America" />
                 <TextBlock x:ConnectionId='14' Name="RelativeURLTextBlock" Grid.Column="1" Grid.Row="1" Style="{StaticResource DetailTextBlockStyle}" Text="/united-states" />
                 <TextBlock x:ConnectionId='15' Name="IsRootTextBlock" Grid.Column="1" Grid.Row="2" Style="{StaticResource DetailTextBlockStyle}" Text="True" />
                 <TextBlock x:ConnectionId='16' Name="LastUpdatedTextBlock" Grid.Column="1" Grid.Row="3" Style="{StaticResource DetailTextBlockStyle}" Text="July 4, 1776 at 12:00 PM" />
@@ -112,25 +112,36 @@
             </Grid>
             <StackPanel Margin="0,32,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:ConnectionId='9' Name="RemoveButton"                            Content="&#xE74D;" Margin="0,0,14,0" Style="{StaticResource ContentOnlyButtonStyle}" FontSize="32" ToolTipService.ToolTip="Delete this Page" />
-                    <Button x:ConnectionId='10' Name="SaveChangesButton"                                 Style="{StaticResource ContentOnlyButtonStyle}" Content="&#xE74E;" IsEnabled="False" Margin="0,0,14,0" ToolTipService.ToolTip="Save Changes" FontSize="32" />
-                    <Button x:ConnectionId='11' Name="SublimeTextButton" Content="&#xE8E5;"                                 ToolTipService.ToolTip="Open in Sublime Text" Style="{StaticResource ContentOnlyButtonStyle}" Margin="0,0,14,0" FontSize="32" />
-                    <Button x:ConnectionId='12' Name="DeployButton" Content="&#xEC27;"                            ToolTipService.ToolTip="Deploy to Production" Style="{StaticResource ContentOnlyButtonStyle}" FontSize="32" />
+                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
+                        <Button x:ConnectionId='12' Name="RemoveButton"                            Content="&#xE74D;" Style="{StaticResource ContentOnlyButtonStyle}" FontSize="26" />
+                        <TextBlock VerticalAlignment="Center">Delete</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
+                        <Button x:ConnectionId='11' Name="SaveChangesButton"                                 Style="{StaticResource ContentOnlyButtonStyle}" Content="&#xE74E;" FontSize="26" />
+                        <TextBlock VerticalAlignment="Center">Save</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
+                        <Button x:ConnectionId='10' Name="SublimeTextButton" Content="&#xE8E5;"                                 Style="{StaticResource ContentOnlyButtonStyle}" FontSize="26" />
+                        <TextBlock VerticalAlignment="Center">Open in...</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:ConnectionId='9' Name="DeployButton" Content="&#xEC27;"                            Style="{StaticResource ContentOnlyButtonStyle}" FontSize="26" />
+                        <TextBlock VerticalAlignment="Center">Deploy</TextBlock>
+                    </StackPanel>
                 </StackPanel>
-                <Button x:ConnectionId='8' Name="OkayButton"                          Style="{StaticResource ButtonRevealStyle}" Width="100" Margin="6,26,0,0">OK</Button>
+                
+                <Button x:ConnectionId='8' Name="OkayButton"                          Style="{StaticResource ButtonRevealStyle}" Width="100" Margin="0,26,0,0">OK</Button>
             </StackPanel>
         </StackPanel>
-        <!--  -->
-        <!--  -->
-        <!--  -->
+        
         <StackPanel x:ConnectionId='4' Name="RightPanel">
             <StackPanel.Transitions>
                 <TransitionCollection>
                     <RepositionThemeTransition />
                 </TransitionCollection>
             </StackPanel.Transitions>
-            <TextBox x:ConnectionId='5' Name="ContentHTMLTextBox"                                               Header="Content HTML" Style="{StaticResource HTMLContentBoxStyle}" />
-            <TextBox x:ConnectionId='6' Name="HeaderHTMLTextBox"                                               Header="Additional Header Elements" Style="{StaticResource HTMLContentBoxStyle}" />
+            <TextBox x:ConnectionId='5' Name="ContentHTMLTextBox" Header="Content HTML" Style="{StaticResource HTMLContentBoxStyle}" />
+            <TextBox x:ConnectionId='6' Name="HeaderHTMLTextBox" Header="Additional Header Elements" Style="{StaticResource HTMLContentBoxStyle}" />
         </StackPanel>
     </Grid>
 </Page>

@@ -17,11 +17,18 @@ namespace Site_Manager
             ApplicationDataCompositeValue composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_DEVOPTIONS);
             if (composite == null)
             {
-                Debug.Out("Saving default values for developer options", "WARNING");
-                SettingsManager.SetComposite(new ApplicationDataCompositeValue { [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = true, [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = true }, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
-                composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_DEVOPTIONS);
+                Debug.Out("Saving default values", "WARNING");
+                // default values
+                ApplicationDataCompositeValue defaultComposite = new ApplicationDataCompositeValue()
+                {
+                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = true,
+                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = true
+                };
+
+                SettingsManager.SetComposite(defaultComposite, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
+                composite = defaultComposite;
             }
-            Debug.Out("Loading from composite", "DEVELOPER OPTIONS");
+            Debug.Out("Loading values from composite", "DEVELOPER OPTIONS");
             BlankDeploy = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY];
             UseTestDirectory = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY];
             Loaded = true;
@@ -29,8 +36,12 @@ namespace Site_Manager
 
         public static void Save()
         {
-            Debug.Out("Saving developer options to the settings composite...", "DEVELOPER OPTIONS");
-            SettingsManager.SetComposite(new ApplicationDataCompositeValue { [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = BlankDeploy, [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = UseTestDirectory }, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
+            Debug.Out("Saving to composite...", "DEVELOPER OPTIONS");
+            SettingsManager.SetComposite(new ApplicationDataCompositeValue
+            {
+                [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = BlankDeploy,
+                [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = UseTestDirectory
+            }, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
         }
 
         public static void SetBlankDeploy(bool value)

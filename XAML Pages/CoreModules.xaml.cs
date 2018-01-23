@@ -28,7 +28,7 @@ namespace Site_Manager
                 CoreManager.Modules.Clear();
                 for (int i = 0; i < Tags.Count; i++)
                 {
-                    CoreManager.Modules.Add(new CoreModule() { Tag = Tags[i] });
+                    CoreManager.Modules.Add(new CoreModule(Tags[i]));
                 }
             }
         }
@@ -94,8 +94,8 @@ namespace Site_Manager
             // get tag of module to deploy
             string tag = (sender as Button).Tag.ToString();
             // update that module with the updated code
-            Debug.Out("Saving \"" + tag + "\"...", "CORE MODULES");
-            CoreManager.Modules[CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag))] = new CoreModule() { Code = GetTextBoxByTag(tag).Text, Tag = tag };
+            Debug.Out("Saving \"" + tag + "\" module...", "CORE MODULES");
+            CoreManager.Modules[CoreManager.Modules.IndexOf(CoreManager.GetModuleByTag(tag))] = new CoreModule(tag, GetTextBoxByTag(tag).Text);
             // save changes
             await CoreManager.Save();
         }

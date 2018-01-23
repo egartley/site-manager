@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
+using FluentFTP;
 
 namespace Site_Manager
 {
@@ -10,18 +12,19 @@ namespace Site_Manager
         public static string Server, Password, Username;
         private static bool ConfigurationLoaded = false;
         public static bool Connected = false;
-        private static Chilkat.Ftp2 Client;
+        public static FtpClient Client;
 
         /// <summary>
-        /// Loads config values, such as username and password (does nothing if already called)
+        /// Load configuartion, such as username and password (does nothing if already called)
         /// </summary>
         public static void LoadConfiguration()
         {
             if (ConfigurationLoaded)
             {
-                Debug.Out("FTP configuration already loaded!", "WARNING");
+                Debug.Out("FTP configuration already loaded!", "OKAY");
                 return;
             }
+            Debug.Out("Loading FTP configuration...", "FTP MANAGER");
             try
             {
                 ApplicationDataCompositeValue composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_FTPCONFIG);
@@ -36,16 +39,16 @@ namespace Site_Manager
                 Server = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_SERVER];
                 ConfigurationLoaded = true;
 
-                Client = CreateFtpClient();
-                Client.UnlockComponent("mysupersecretunlockcode");
+                Client = new FtpClient(Server)
+                {
+                    Credentials = new System.Net.NetworkCredential(Username, Password)
+                };
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
             }
         }
-
-        private static Chilkat.Ftp2 CreateFtpClient() => new Chilkat.Ftp2() { Port = 21, Username = Username, Password = Password, Hostname = Server };
 
         /// <summary>
         /// Ensures that the FTP configuration (username, password and server) has been loaded
@@ -64,6 +67,7 @@ namespace Site_Manager
         public static async Task Connect()
         {
             CheckConfiguration();
+            Debug.Out("Connected", "FTP MANAGER");
             await Client.ConnectAsync();
             Connected = true;
         }
@@ -74,6 +78,7 @@ namespace Site_Manager
         public static async Task Disconnect()
         {
             CheckConfiguration();
+            Debug.Out("Disconnected", "FTP MANAGER");
             await Client.DisconnectAsync();
             Connected = false;
         }
@@ -84,7 +89,9 @@ namespace Site_Manager
         public static async Task<StorageFile> Download(string dir, string name)
         {
             CheckConfiguration();
-            await Client.GetFileAsync(dir + name, ApplicationData.Current.LocalFolder.Path + "/" + name);
+            FileStream stream = File.Create(ApplicationData.Current.LocalFolder.Path + "/" + name);
+            await Client.DownloadAsync(stream, dir + name);
+            stream.Dispose();
             return await ApplicationData.Current.LocalFolder.GetFileAsync(name);
         }
 
@@ -109,22 +116,22 @@ namespace Site_Manager
         /// <summary>
         /// Deletes the file (path must include the filename and all parent directories)
         /// </summary>
-        public static async Task<bool> DeleteFile(string path)
+        public static async Task DeleteFile(string path)
         {
             CheckConfiguration();
-            return await Client.DeleteRemoteFileAsync(path);
+            await Client.DeleteFileAsync(path);
         }
 
         /// <summary>
         /// Deletes the file (path must include the filename and all parent directories)
         /// </summary>
-        public static async Task<bool> DeleteFile(string path, bool needsConnect)
+        public static async Task DeleteFile(string path, bool needsConnect)
         {
             if (needsConnect)
             {
                 await Connect();
             }
-            return await DeleteFile(path);
+            await DeleteFile(path);
         }
 
         /// <summary>
@@ -133,27 +140,15 @@ namespace Site_Manager
         public static async Task UploadFile(StorageFile file, string path)
         {
             CheckConfiguration();
-            if (path.EndsWith("/"))
-            {
-                path = path.Substring(0, path.Length);
-            }
-            string r = await GetWorkingDirectory();
             try
             {
-                if (!await GetDirectoryExists(path))
-                {
-                    await CreateDirectory(path);
-                }
-                await Client.ChangeRemoteDirAsync(path);
-                await Client.PutFileAsync(file.Path, path + "/" + file.Name);
+                FileStream stream = File.OpenRead(file.Path);
+                await Client.UploadAsync(stream, path + "/" + file.Name, FtpExists.Overwrite, true);
+                stream.Dispose();
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
-            }
-            finally
-            {
-                await SetWorkingDirectory(r);
             }
         }
 
@@ -163,7 +158,7 @@ namespace Site_Manager
         public static async Task CreateDirectory(string path)
         {
             CheckConfiguration();
-            await Client.CreateRemoteDirAsync(path);
+            await Client.CreateDirectoryAsync(path);
         }
 
         /// <summary>
@@ -189,7 +184,7 @@ namespace Site_Manager
         public static async Task DeleteDirectory(string path)
         {
             CheckConfiguration();
-            await Client.RemoveRemoteDirAsync(path);
+            await Client.DeleteDirectoryAsync(path);
         }
 
         /// <summary>
@@ -215,10 +210,7 @@ namespace Site_Manager
         public static async Task<bool> GetDirectoryExists(string path)
         {
             CheckConfiguration();
-            string r = await GetWorkingDirectory();
-            bool exists = await SetWorkingDirectory(path);
-            await Client.ChangeRemoteDirAsync(r);
-            return exists;
+            return await Client.DirectoryExistsAsync(path);
         }
 
         /// <summary>
@@ -245,16 +237,16 @@ namespace Site_Manager
         public static async Task<string> GetWorkingDirectory()
         {
             CheckConfiguration();
-            return await Client.GetCurrentRemoteDirAsync();
+            return await Client.GetWorkingDirectoryAsync();
         }
 
         /// <summary>
         /// Sets the current "working" directory (path must start from root and include the directory name)
         /// </summary>
-        public static async Task<bool> SetWorkingDirectory(string path)
+        public static async Task SetWorkingDirectory(string path)
         {
             CheckConfiguration();
-            return await Client.ChangeRemoteDirAsync(path);
+            await Client.SetWorkingDirectoryAsync(path);
         }
 
         /// <summary>
@@ -266,9 +258,9 @@ namespace Site_Manager
             string r = await GetWorkingDirectory();
             await SetWorkingDirectory(path);
             List<FTPItem> list = new List<FTPItem>();
-            for (int i = 0; i < await Client.GetDirCountAsync() - 1; i++)
+            foreach (FtpListItem item in await Client.GetListingAsync(path))
             {
-                list.Add(new FTPItem() { IsDirectory = await Client.GetIsDirectoryAsync(i), Name = await Client.GetFilenameAsync(i), Size = await Client.GetSizeAsync(i) });
+                list.Add(new FTPItem() { IsDirectory = item.Type == FtpFileSystemObjectType.Directory, Name = item.Name, Size = (int)item.Size });
             }
             await SetWorkingDirectory(r);
             return list;

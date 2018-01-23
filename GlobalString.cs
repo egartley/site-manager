@@ -14,10 +14,8 @@
         public const string COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY = "blankdeploy";
         public const string COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY = "usetestdirectory";
 
-        public const string WEBPAGE_FILENAME = "webpages.dat";
-        public const string CORE_MODULES_FILENAME = "modules.dat";
-
-        public const string CORE_MODULE_STRING_DELIMITER = "[[]]";
+        public const string WEBPAGE_FILENAME = "webpages.json";
+        public const string CORE_MODULES_FILENAME = "modules.json";
 
         public const string TOOLTIP_DEVOPTIONS_BLANKDEPLOY = "Nothing will be deployed (useful for testing)";
         public const string TOOLTIP_DEVOPTIONS_USETESTDIRECTORY = "Everything will be deployed to \"/test\" instead of \"/\"";

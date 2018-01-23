@@ -15,9 +15,9 @@
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.16288.0" MaxVersionTested="10.0.16288.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.16299.0" MaxVersionTested="10.0.16299.0" />
     <PackageDependency Name="Microsoft.NET.CoreRuntime.2.1" MinVersion="2.1.25801.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
-    <PackageDependency Name="Microsoft.VCLibs.140.00.Debug" MinVersion="14.0.25547.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00.Debug" MinVersion="14.0.25830.2" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
   </Dependencies>
   <Resources>
     <Resource Language="EN-US" />
@@ -38,130 +38,16 @@
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
-  <Extensions>
-    <Extension Category="windows.activatableClass.inProcessServer">
-      <InProcessServer>
-        <Path>Chilkat.dll</Path>
-        <ActivatableClass ActivatableClassId="Chilkat.StringArray" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ZipEntry" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Gzip" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Bounce" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.HtmlToXml" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Log" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Mht" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthAzureSAS" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.PrivateKey" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.TrustedRoots" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.HtmlToText" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Asn" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Pem" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Stream" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ckrtAccept" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.DirTree" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.MailMan" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ToBeZippedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.HttpResponse" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.CkDateTime" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.JavaKeyStore" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Email" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Spider" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.MessageSet" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthAws" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Ssh" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Tar" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Scp" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthAzureStorage" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.StringBuilder" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Url" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Charset" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Cert" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.CertChain" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Jws" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthAzureAD" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.FileZippedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.FileUnzippedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.DtObj" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Bz2" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthGoogle" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.BinData" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.FileAddedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Global" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Atom" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Dkim" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ServerSentEvent" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.EmailEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.StringTable" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.FileAccess" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.JsonArray" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.SFtpFile" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Mime" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.DirToBeAddedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.XmlDSigGen" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Http" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Csv" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Imap" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.PercentDoneEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Xml" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Prng" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Dsa" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Pfx" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.SshKey" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.NextTarFileEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Rsa" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Compression" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AbortCheckEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Crypt2" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.OAuth1" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Cache" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ToBeAddedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ProgressInfoEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.CertStore" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Csr" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Upload" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.OAuth2" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.SFtp" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Rss" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Xmp" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Mailboxes" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Jwt" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Hashtable" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Ftp2" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Dh" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.EventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.HttpRedirectEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ZipCrc" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Rest" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.ToBeUnzippedEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.XmlCertVault" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.StatusEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.SFtpDir" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.DataRateEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.XmlDSig" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Jwe" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.PublicKey" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Ecc" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.UnixCompress" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.AuthUtil" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.JsonObject" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.FtpTreeEventArgs" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.EmailBundle" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.HttpRequest" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Ntlm" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Socket" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="Chilkat.Zip" ThreadingModel="both" />
-      </InProcessServer>
-    </Extension>
-  </Extensions>
   <build:Metadata>
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v5.0" />
     <build:Item Name="VisualStudio" Version="15.0" />
     <build:Item Name="VisualStudioEdition" Value="Microsoft Visual Studio Community 2017" />
     <build:Item Name="OperatingSystem" Version="10.0.16299.15 (WinBuild.160101.0800)" />
-    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="15.0.26906.1" />
+    <build:Item Name="Microsoft.Build.AppxPackage.dll" Version="15.0.27128.1" />
     <build:Item Name="ProjectGUID" Value="{97D02EE1-5039-4FDE-B0EE-08E78532E6C9}" />
     <build:Item Name="OptimizingToolset" Value="None" />
     <build:Item Name="TargetRuntime" Value="Managed" />
-    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="15.0.26906.1" />
-    <build:Item Name="MakePri.exe" Version="10.0.16288.1 (WinBuild.160101.0800)" />
+    <build:Item Name="Microsoft.Windows.UI.Xaml.Build.Tasks.dll" Version="15.0.27128.1" />
+    <build:Item Name="MakePri.exe" Version="10.0.16299.15 (WinBuild.160101.0800)" />
   </build:Metadata>
 </Package>

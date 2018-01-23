@@ -7,21 +7,18 @@
             Tag = "";
             Code = "";
         }
-        public CoreModule(string s)
+        public CoreModule(string tag)
         {
-            ParseFromString(s);
+            Tag = tag;
+            Code = "";
+        }
+        public CoreModule(string tag, string code)
+        {
+            Tag = tag;
+            Code = code;
         }
         public string Code { get; set; }
         public string Tag { get; set; }
-        public string GetAsString() => Tag + GlobalString.CORE_MODULE_STRING_DELIMITER + System.Net.WebUtility.HtmlEncode(Code);
-        public void ParseFromString(string s)
-        {
-            if (s.IndexOf(GlobalString.CORE_MODULE_STRING_DELIMITER) == -1)
-            {
-                return;
-            }
-            Tag = s.Substring(0, s.IndexOf(GlobalString.CORE_MODULE_STRING_DELIMITER));
-            Code = System.Net.WebUtility.HtmlDecode(s.Substring(s.IndexOf(GlobalString.CORE_MODULE_STRING_DELIMITER) + GlobalString.CORE_MODULE_STRING_DELIMITER.Length));
-        }
+        public string GetAsString() => Newtonsoft.Json.JsonConvert.SerializeObject(this);
     }
 }
