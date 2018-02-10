@@ -1,2 +1,0 @@
-"/t:System.Object,System.Runtime,dcs"
-"/t:System.Collections.ObjectModel.ObservableCollection`1[[Site_Manager.ManagedWebPage,Site Manager]],System,dcs"
