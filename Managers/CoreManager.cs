@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -23,11 +22,11 @@ namespace Site_Manager
 
             try
             {
-                Debug.Out("Getting \"" + GlobalString.CORE_MODULES_FILENAME + "\"...", "CORE MANAGER");
-                StorageFile file = await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME);
+                Debug.Out("Getting \"" + GlobalString.FILENAME_CORE_MODULES + "\"...", "CORE MANAGER");
+                StorageFile file = await FileManager.GetStorageFile(GlobalString.FILENAME_CORE_MODULES);
                 if (file == null)
                 {
-                    Debug.Out("\"" + GlobalString.CORE_MODULES_FILENAME + "\" did not exist, creating an empty collection of modules and writing to it...", "WARNING");
+                    Debug.Out("\"" + GlobalString.FILENAME_CORE_MODULES + "\" did not exist, creating an empty collection of modules and writing to it...", "WARNING");
                     // create collection of empty modules
                     Modules = GetEmptyModules();
                     // save default modules
@@ -38,7 +37,7 @@ namespace Site_Manager
                     return;
                 }
 
-                Debug.Out("Reading \"" + GlobalString.CORE_MODULES_FILENAME + "\"...", "CORE MANAGER");
+                Debug.Out("Reading \"" + GlobalString.FILENAME_CORE_MODULES + "\"...", "CORE MANAGER");
                 // recursively load from file
                 CoreModule[] modules = Newtonsoft.Json.JsonConvert.DeserializeObject<CoreModule[]>(await FileManager.GetFileContents(file));
                 foreach (CoreModule mod in modules)
@@ -62,14 +61,14 @@ namespace Site_Manager
             CoreModule[] array = new CoreModule[Modules.Count];
             Modules.CopyTo(array, 0);
 
-            if (!await FileManager.GetExists(GlobalString.CORE_MODULES_FILENAME))
+            if (!await FileManager.GetExists(GlobalString.FILENAME_CORE_MODULES))
             {
-                Debug.Out("\"" + GlobalString.CORE_MODULES_FILENAME + "\" doesn't exist, creating an empty one...", "WARNING");
-                await FileManager.CreateStorageFile(GlobalString.CORE_MODULES_FILENAME);
+                Debug.Out("\"" + GlobalString.FILENAME_CORE_MODULES + "\" doesn't exist, creating an empty one...", "WARNING");
+                await FileManager.CreateStorageFile(GlobalString.FILENAME_CORE_MODULES);
             }
 
-            Debug.Out("Writing to " + GlobalString.CORE_MODULES_FILENAME + "\" ...", "CORE MANAGER");
-            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.CORE_MODULES_FILENAME), Newtonsoft.Json.JsonConvert.SerializeObject(array));
+            Debug.Out("Writing to " + GlobalString.FILENAME_CORE_MODULES + "\" ...", "CORE MANAGER");
+            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.FILENAME_CORE_MODULES), Newtonsoft.Json.JsonConvert.SerializeObject(array));
         }
 
         public static CoreModule GetModuleByTag(string tag)

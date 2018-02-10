@@ -101,14 +101,14 @@ namespace Site_Manager
             ManagedWebPage[] pages = new ManagedWebPage[Pages.Count];
             Pages.CopyTo(pages, 0);
 
-            if (!await FileManager.GetExists(GlobalString.WEBPAGE_FILENAME))
+            if (!await FileManager.GetExists(GlobalString.FILENAME_WEBPAGES))
             {
-                Debug.Out("\"" + GlobalString.WEBPAGE_FILENAME + "\" doesn't exist, creating an empty one...", "WARNING");
-                await FileManager.CreateStorageFile(GlobalString.WEBPAGE_FILENAME);
+                Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" doesn't exist, creating an empty one...", "WARNING");
+                await FileManager.CreateStorageFile(GlobalString.FILENAME_WEBPAGES);
             }
 
-            Debug.Out("Writing to " + GlobalString.WEBPAGE_FILENAME + "\" ...", "WEB PAGE MANAGER");
-            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.WEBPAGE_FILENAME), Newtonsoft.Json.JsonConvert.SerializeObject(pages));
+            Debug.Out("Writing to " + GlobalString.FILENAME_WEBPAGES + "\" ...", "WEB PAGE MANAGER");
+            await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.FILENAME_WEBPAGES), Newtonsoft.Json.JsonConvert.SerializeObject(pages));
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace Site_Manager
 
             try
             {
-                Debug.Out("Getting \"" + GlobalString.WEBPAGE_FILENAME + "\"...", "WEB PAGE MANAGER");
-                StorageFile file = await FileManager.GetStorageFile(GlobalString.WEBPAGE_FILENAME);
+                Debug.Out("Getting \"" + GlobalString.FILENAME_WEBPAGES + "\"...", "WEB PAGE MANAGER");
+                StorageFile file = await FileManager.GetStorageFile(GlobalString.FILENAME_WEBPAGES);
                 if (file == null)
                 {
                     if (await FileManager.GetStorageFile("webpages.dat") != null)
@@ -137,7 +137,7 @@ namespace Site_Manager
                     }
                     else
                     {
-                        Debug.Out("\"" + GlobalString.WEBPAGE_FILENAME + "\" did not exist, creating an empty collection of web pages and writing to it...", "WARNING");
+                        Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" did not exist, creating an empty collection of web pages and writing to it...", "WARNING");
                         Pages = new ObservableCollection<ManagedWebPage>();
                         await Save();
                         Loaded = true;
@@ -145,10 +145,11 @@ namespace Site_Manager
                     }
                 }
 
-                Debug.Out("Reading \"" + GlobalString.WEBPAGE_FILENAME + "\"...", "WEB PAGE MANAGER");
+                Debug.Out("Reading \"" + GlobalString.FILENAME_WEBPAGES + "\"...", "WEB PAGE MANAGER");
                 ManagedWebPage[] pages = Newtonsoft.Json.JsonConvert.DeserializeObject<ManagedWebPage[]>(await FileManager.GetFileContents(file));
                 foreach (ManagedWebPage page in pages)
                 {
+                    Debug.Out("Adding page with url of \"" + page.RelativeURL + "\"...", "WEB PAGE MANAGER");
                     Pages.Add(page);
                 }
 

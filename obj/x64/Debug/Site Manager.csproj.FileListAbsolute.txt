@@ -590,4 +590,3 @@ C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\qualifiers.txt
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\qualifiers.txt.intermediate
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\ProjectArchitectures.txt
-C:\Users\egart\Source\Repos\Site Manager\obj\x64\Debug\Site Manager.csprojResolveAssemblyReference.cache

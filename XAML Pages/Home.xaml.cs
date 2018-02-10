@@ -8,13 +8,18 @@ namespace Site_Manager
 {
     public sealed partial class Home : Page
     {
+
         private ObservableCollection<WebPageListItem> ListItems = new ObservableCollection<WebPageListItem>();
         private ObservableCollection<string> AutoSuggestItems = new ObservableCollection<string>();
         private ObservableCollection<string> OriginalAutoSuggestItems = new ObservableCollection<string>();
 
         public Home() => InitializeComponent();
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e) => await SyncListItems();
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await SyncListItems();
+            UpdateDeployLocationTextBlock();
+        }
 
         private async Task SyncListItems()
         {
@@ -36,7 +41,7 @@ namespace Site_Manager
             }
             WebPagesListView.ItemsSource = ListItems;
 
-            // build autosuggestbox itemsource
+            // build autosuggestbox itemssource
             AutoSuggestItems.Clear();
             OriginalAutoSuggestItems.Clear();
             foreach (ManagedWebPage page in WebPageManager.Pages)
@@ -45,6 +50,18 @@ namespace Site_Manager
                 OriginalAutoSuggestItems.Add(page.RelativeURL);
             }
             NewPageTextBox.ItemsSource = AutoSuggestItems;
+        }
+
+        public void UpdateDeployLocationTextBlock()
+        {
+            if (DeveloperOptions.GetUseTestDirectory())
+            {
+                DeployLocationTextBlock.Text = "Test (\"/test\")";
+            }
+            else
+            {
+                DeployLocationTextBlock.Text = "Production";
+            }
         }
 
         private void UpdateAutoSuggestItems(string query)
@@ -190,5 +207,9 @@ namespace Site_Manager
 
         private async void DeployButton_Click(object sender, RoutedEventArgs e) => await Deployer.DeployAll();
 
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

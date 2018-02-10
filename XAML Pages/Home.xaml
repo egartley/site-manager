@@ -65,6 +65,7 @@
                     </Border>
                 </Grid>
             </Button>
+            <TextBlock Name="DeployLocationTextBlock" TextAlignment="Center" Margin="0, 14, 0, 0">Production</TextBlock>
         </StackPanel>
     </Grid>
 </Page>
