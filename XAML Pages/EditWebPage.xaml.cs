@@ -48,8 +48,6 @@ namespace Site_Manager
 
             WebPageManager.SetSelectedPage(Page);
             await WebPageManager.Save();
-            
-            SaveChangesButton.IsEnabled = false;
 
             LoadDetails();
         }
@@ -86,13 +84,13 @@ namespace Site_Manager
             ContentDialog confirmation = new ContentDialog
             {
                 Title = "Are you sure?",
-                Content = "Once deleted, this page and its contents cannot be restored!",
-                PrimaryButtonText = "No",
+                Content = "Once deleted, this page and its contents cannot be recovered",
+                PrimaryButtonText = "Nevermind",
                 SecondaryButtonText = "I'm sure"
             };
             if (await confirmation.ShowAsync() == ContentDialogResult.Primary)
             {
-                // no
+                // nevermind
 
                 // dismiss dialog and do nothing else
                 confirmation.Hide();

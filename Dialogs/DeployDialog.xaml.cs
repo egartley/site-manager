@@ -26,7 +26,10 @@ namespace Site_Manager
         {
             InitializeComponent();
             Pages = pages ?? throw new ArgumentNullException(nameof(pages));
-            Opened += async (s, args) => { await Deploy(); };
+            Opened += async (s, args) =>
+            {
+                await Deploy();
+            };
         }
 
         private void Log(string message)
@@ -36,14 +39,15 @@ namespace Site_Manager
                 throw new ArgumentNullException(nameof(message));
             }
             LogTextBlock.Text += message + " \n";
+            // auto scroll
             LogScrollViewer.ChangeView(0, LogScrollViewer.ScrollableHeight, 1);
         }
 
-        public async Task Deploy()
+        private async Task Deploy()
         {
             DateTime start = DateTime.Now;
             double interval = 100.0 / Pages.Count;
-            int  i = 1;
+            int i = 1;
             DeployProgressBar.Value = 0;
 
             foreach (ManagedWebPage page in Pages)
@@ -55,6 +59,7 @@ namespace Site_Manager
             foreach (ManagedWebPage page in Pages)
             {
                 string path = page.RelativeURL;
+                System.Diagnostics.Debug.WriteLine("deploying \"" + path + "\"");
                 if (DeveloperOptions.GetUseTestDirectory())
                 {
                     path = $"/test{path}";
@@ -67,30 +72,20 @@ namespace Site_Manager
                 Log(msg);
                 if (!DeveloperOptions.GetBlankDeploy())
                 {
-                    Progress<double> progress = new Progress<double>(x =>
-                    {
-                        if (x < 100)
-                        {
-                            LogTextBlock.Text = LogTextBlock.Text.Replace(msg, msg + " (" + x + "% complete)");
-                        }
-                        else
-                        {
-                            LogTextBlock.Text = LogTextBlock.Text.Replace("(Uploading...)", "(Finished)");
-                        }
-                    });
-
+                    System.Diagnostics.Debug.WriteLine("create temp file");
                     StorageFile file = await FileManager.CreateTemporaryFile(HTMLBuilder.GetFullPageHTML(page));
                     Debug.Out("Uploading... (" + file.Path + " to " + path + ")");
-                    System.IO.FileStream stream = System.IO.File.OpenRead(file.Path);
-                    await FTPManager.Client.UploadAsync(stream, path + "/" + file.Name, FluentFTP.FtpExists.Overwrite, true, System.Threading.CancellationToken.None, progress);
-                    stream.Dispose();
+                    System.Diagnostics.Debug.WriteLine("upload");
+                    await FTPManager.UploadFile(file, path);
+                    System.Diagnostics.Debug.WriteLine("remove temp file");
                     await file.DeleteAsync();
+                    LogTextBlock.Text = LogTextBlock.Text.Replace("(Uploading...)", "(Finished)");
                 }
 
                 DeployProgressBar.Value += interval;
                 i++;
+                await Task.Delay(200);
             }
-
             await FTPManager.Disconnect();
 
             // save because submitted times were updated

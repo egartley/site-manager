@@ -41,7 +41,9 @@ namespace Site_Manager
 
                 Client = new FtpClient(Server)
                 {
-                    Credentials = new System.Net.NetworkCredential(Username, Password)
+                    Credentials = new System.Net.NetworkCredential(Username, Password),
+                    RetryAttempts = 3,
+                    TransferChunkSize = 1024 * 6
                 };
             }
             catch (Exception e)
@@ -140,10 +142,47 @@ namespace Site_Manager
         public static async Task UploadFile(StorageFile file, string path)
         {
             CheckConfiguration();
+            if (path.Length == 1)
+            {
+                Debug.Out("Fixed path", "FTP MANAGER");
+                path = "";
+            }
+            string filepath = path + "/" + file.Name;
             try
             {
+                if (path.Length != 0)
+                {
+                    // path was not ""
+                    Debug.Out("checking for dir", "FTP MANAGER");
+                    bool e = await Client.DirectoryExistsAsync(path);
+                    if (e == true)
+                    {
+                        Debug.Out("dir exists", "FTP MANAGER");
+                    }
+                    else
+                    {
+                        Debug.Out("dir DOES NOT exist, creating", "FTP MANAGER");
+                        await Client.CreateDirectoryAsync(path);
+                        Debug.Out("created \"" + path + "\"", "FTP MANAGER");
+                    }
+                }
+
+                /*Debug.Out("checking for index.html (" + filepath + ")", "FTP MANAGER");
+                bool fileExists = await Client.FileExistsAsync(filepath);
+                if (fileExists)
+                {
+                    Debug.Out("file DOES exist, deleting", "FTP MANAGER");
+                    await Client.DeleteFileAsync(filepath);
+                }
+                else
+                {
+                    Debug.Out("file does not exist, continuing", "FTP MANAGER");
+                }*/
+
                 FileStream stream = File.OpenRead(file.Path);
-                await Client.UploadAsync(stream, path + "/" + file.Name, FtpExists.Overwrite, true);
+                Debug.Out("uploading file", "FTP MANAGER");
+                bool upload = await Client.UploadAsync(stream, filepath, FtpExists.Overwrite, true);
+                Debug.Out("success: " + upload, "FTP MANAGER");
                 stream.Dispose();
             }
             catch (Exception e)
