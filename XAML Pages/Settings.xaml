@@ -19,7 +19,7 @@
     <StackPanel HorizontalAlignment="Left">
         <StackPanel>
             <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,16">FTP Configuration</TextBlock>
-            <Grid Margin="0,0,0,16">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -29,23 +29,27 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Username" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundBaseHighBrush}" />
-                <TextBox Grid.Column="1" Name="UsernameTextBox" Style="{StaticResource InputTextBoxStyle}" PlaceholderText="user@example.com" />
-                <TextBlock Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundBaseHighBrush}" />
-                <PasswordBox Grid.Row="1" Grid.Column="1" Name="PasswordTextBox" PlaceholderText="password1234" Width="300" PasswordRevealMode="Peek" VerticalAlignment="Center" Margin="12,6,0,8" />
-                <TextBlock Grid.Row="2" Text="FTP Server" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundBaseHighBrush}" />
-                <TextBox Grid.Row="2" Grid.Column="1" Name="ServerTextBox" Style="{StaticResource InputTextBoxStyle}" PlaceholderText="ftp.example.com" />
+                <TextBlock Text="Username" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" Name="UsernameTextBox" Style="{StaticResource InputTextBoxStyle}" />
+                
+                <TextBlock Grid.Row="1" Text="Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <PasswordBox Grid.Row="1" Grid.Column="1" Name="PasswordTextBox" Width="300" PasswordRevealMode="Peek" VerticalAlignment="Center" Margin="12,6,0,8" />
+                
+                <TextBlock Grid.Row="2" Text="FTP Server" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Row="2" Grid.Column="1" Name="ServerTextBox" Style="{StaticResource InputTextBoxStyle}" />
             </Grid>
+            <TextBlock Foreground="{StaticResource SystemControlForegroundBaseMediumLowBrush}" FontSize="13" Margin="0,0,0,16">Credentials to use while deploying with FTP</TextBlock>
             <Button Name="SaveButton" Content="Save Changes" Click="SaveFTPConfigButton_Click" Style="{StaticResource ButtonRevealStyle}" />
         </StackPanel>
-        <!--   -->
-        <!--   -->
-        <!--   -->
         <StackPanel Margin="0,52,0,0">
             <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,16">Developer Options</TextBlock>
             <StackPanel Orientation="Vertical">
                 <CheckBox Name="BlankDeployCheckBox" Content="Blank deploy" Click="BlankDeployCheckBox_Click" />
-                <CheckBox Name="UseTestDirectoryCheckBox" Content="Use &quot;/test&quot; directory" Click="UseTestDirectoryCheckBox_Click" />
+                <TextBlock Foreground="{StaticResource SystemControlForegroundBaseMediumLowBrush}" FontSize="13" Margin="0,0,0,12">While deploying, nothing is actually uploaded or created</TextBlock>
+                <CheckBox Name="UseTestDirectoryCheckBox" Content="Use the testing directory" Click="UseTestDirectoryCheckBox_Click" />
+                <TextBlock Foreground="{StaticResource SystemControlForegroundBaseMediumLowBrush}" FontSize="13" Margin="0,0,0,12">Upload to "/test" instead of "/"</TextBlock>
+                <CheckBox Name="LocalDeployCheckBox" Content="Deploy pages locally" Click="LocalDeployCheckBox_Click" />
+                <TextBlock Foreground="{StaticResource SystemControlForegroundBaseMediumLowBrush}" FontSize="13">Deploy to the local machine, and open in File Explorer</TextBlock>
             </StackPanel>
         </StackPanel>
     </StackPanel>

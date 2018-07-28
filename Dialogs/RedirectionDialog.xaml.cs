@@ -24,17 +24,21 @@ namespace Site_Manager
         {
             DestinationTextBlock.Visibility = Visibility.Collapsed;
             DestinationProgressBar.Visibility = Visibility.Visible;
-            StorageFile file = await FTPManager.Download("/go/" + url + "/", "index.html", true); // get the actual html file
+            // get the actual html file
+            StorageFile file = await FTPManager.Download("/go/" + url + "/", "index.html", true);
             string contents = await FileManager.GetFileContents(file), delimiter = "window.location=\"";
             string extractedDestination = "";
             if (contents.IndexOf(delimiter) != -1)
             {
-                extractedDestination = contents.Substring(contents.IndexOf(delimiter) + delimiter.Length); // extract destination
+                // extract destination
+                extractedDestination = contents.Substring(contents.IndexOf(delimiter) + delimiter.Length);
             }
             else
             {
+                // something went wrong
                 extractedDestination = "There was an error while parsing\"";
             }
+            // update UI
             DestinationTextBlock.Text = extractedDestination.Substring(0, extractedDestination.IndexOf("\""));
             Destination = DestinationTextBlock.Text;
             DestinationTextBlock.Visibility = Visibility.Visible;
@@ -55,6 +59,7 @@ namespace Site_Manager
             // OK
             if (FTPManager.Connected)
             {
+                // disconnect if still connected
                 await FTPManager.Disconnect();
             }
             Hide();

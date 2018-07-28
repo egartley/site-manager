@@ -18,16 +18,17 @@ namespace Site_Manager
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            FTPManager.LoadConfiguration();
+            if (!FTPManager.ConfigurationLoaded)
+            {
+                FTPManager.LoadConfiguration();
+            }
             UsernameTextBox.Text = FTPManager.Username;
             PasswordTextBox.Password = FTPManager.Password;
             ServerTextBox.Text = FTPManager.Server;
+
             BlankDeployCheckBox.IsChecked = DeveloperOptions.GetBlankDeploy();
             UseTestDirectoryCheckBox.IsChecked = DeveloperOptions.GetUseTestDirectory();
-
-            // set tooltips
-            ToolTipService.SetToolTip(BlankDeployCheckBox, new ToolTip() { Content = GlobalString.TOOLTIP_DEVOPTIONS_BLANKDEPLOY });
-            ToolTipService.SetToolTip(UseTestDirectoryCheckBox, new ToolTip() { Content = GlobalString.TOOLTIP_DEVOPTIONS_USETESTDIRECTORY });
+            LocalDeployCheckBox.IsChecked = DeveloperOptions.GetLocalDeploy();
         }
 
         private void BlankDeployCheckBox_Click(object sender, RoutedEventArgs e)
@@ -39,6 +40,12 @@ namespace Site_Manager
         private void UseTestDirectoryCheckBox_Click(object sender, RoutedEventArgs e)
         {
             DeveloperOptions.SetUseTestDirectory((bool)UseTestDirectoryCheckBox.IsChecked);
+            DeveloperOptions.Save();
+        }
+
+        private void LocalDeployCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            DeveloperOptions.SetLocalDeploy((bool)LocalDeployCheckBox.IsChecked);
             DeveloperOptions.Save();
         }
     }

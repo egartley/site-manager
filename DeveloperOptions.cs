@@ -5,7 +5,7 @@ namespace Site_Manager
     class DeveloperOptions
     {
 
-        private static bool BlankDeploy, UseTestDirectory;
+        private static bool BlankDeploy, UseTestDirectory, LocalDeploy;
         private static bool Loaded = false;
 
         public static void Load()
@@ -21,16 +21,29 @@ namespace Site_Manager
                 // default values
                 ApplicationDataCompositeValue defaultComposite = new ApplicationDataCompositeValue()
                 {
-                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = true,
-                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = true
+                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = false,
+                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = false,
+                    [GlobalString.COMPOSITE_KEY_DEVOPTIONS_LOCALDEPLOY] = false
                 };
 
                 SettingsManager.SetComposite(defaultComposite, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
                 composite = defaultComposite;
             }
             Debug.Out("Loading values from composite", "DEVELOPER OPTIONS");
-            BlankDeploy = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY];
-            UseTestDirectory = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY];
+
+            if (composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] != null)
+                BlankDeploy = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY];
+            else
+                BlankDeploy = false;
+            if (composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] != null)
+                UseTestDirectory = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY];
+            else
+                UseTestDirectory = false;
+            if (composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_LOCALDEPLOY] != null)
+                LocalDeploy = (bool)composite[GlobalString.COMPOSITE_KEY_DEVOPTIONS_LOCALDEPLOY];
+            else
+                LocalDeploy = false;
+
             Loaded = true;
         }
 
@@ -40,7 +53,8 @@ namespace Site_Manager
             SettingsManager.SetComposite(new ApplicationDataCompositeValue
             {
                 [GlobalString.COMPOSITE_KEY_DEVOPTIONS_BLANKDEPLOY] = BlankDeploy,
-                [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = UseTestDirectory
+                [GlobalString.COMPOSITE_KEY_DEVOPTIONS_USETESTDIRECTORY] = UseTestDirectory,
+                [GlobalString.COMPOSITE_KEY_DEVOPTIONS_LOCALDEPLOY] = LocalDeploy
             }, GlobalString.COMPOSITE_KEY_DEVOPTIONS);
         }
 
@@ -54,6 +68,12 @@ namespace Site_Manager
         {
             Debug.Out($"Setting UseTestDirectory to {value.ToString()}", "DEVELOPER OPTIONS");
             UseTestDirectory = value;
+        }
+
+        public static void SetLocalDeploy(bool value)
+        {
+            Debug.Out($"Setting LocalDeploy to {value.ToString()}", "DEVELOPER OPTIONS");
+            LocalDeploy = value;
         }
 
         public static bool GetBlankDeploy()
@@ -76,5 +96,14 @@ namespace Site_Manager
             return UseTestDirectory;
         }
 
+        public static bool GetLocalDeploy()
+        {
+            if (!Loaded)
+            {
+                Load();
+            }
+            Debug.Out($"Returning LocalDeploy ({LocalDeploy.ToString()})", "DEVELOPER OPTIONS");
+            return LocalDeploy;
+        }
     }
 }

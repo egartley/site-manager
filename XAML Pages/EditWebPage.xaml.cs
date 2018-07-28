@@ -46,7 +46,7 @@ namespace Site_Manager
             t = HeaderHTMLTextBox.Text;
             Page.AdditionalHeaderHTML = t;
 
-            WebPageManager.SetSelectedPage(Page);
+            WebPageManager.SetSelected(Page);
             await WebPageManager.Save();
 
             LoadDetails();
@@ -70,7 +70,7 @@ namespace Site_Manager
 
         private async void DeployButton_Click(object sender, RoutedEventArgs e)
         {
-            WebPageManager.SetSelectedPage(Page);
+            WebPageManager.SetSelected(Page);
             await WebPageManager.Save();
 
             DeployDialog dialog = new DeployDialog(WebPageManager.GetSelectedPage());

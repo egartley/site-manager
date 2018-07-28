@@ -19,14 +19,14 @@ namespace Site_Manager
         {
             if (!Loaded)
             {
-                Debug.Out("Tried to get a web page with URL of \"" + url + "\", but web pages haven't been loaded yet!", "WARNING");
+                Debug.Out("Tried to get \"" + url + "\", but webpages haven't been loaded yet", "WARNING");
                 return null;
             }
             foreach (ManagedWebPage page in Pages)
             {
                 if (page.RelativeURL == url)
                 {
-                    Debug.Out("Returning ManagedWebPage with a relative URL of \"" + url + "\"...", "WEB PAGE MANAGER");
+                    Debug.Out("Returning \"" + url + "\"", "WEB PAGE MANAGER");
                     return page;
                 }
             }
@@ -40,14 +40,14 @@ namespace Site_Manager
         {
             if (!Loaded)
             {
-                Debug.Out("Tried to get a web page with URL of \"" + url + "\", but web pages haven't been loaded yet!", "WARNING");
+                Debug.Out("Tried to get \"" + url + "\", but webpages haven't been loaded yet", "WARNING");
                 return null;
             }
             foreach (ManagedWebPage page in array)
             {
                 if (page.RelativeURL == url)
                 {
-                    Debug.Out("Returning ManagedWebPage with a relative URL of \"" + url + "\"...", "WEB PAGE MANAGER");
+                    Debug.Out("Returning \"" + url + "\"", "WEB PAGE MANAGER");
                     return page;
                 }
             }
@@ -65,7 +65,7 @@ namespace Site_Manager
         /// </summary>
         public static void Sort()
         {
-            Debug.Out("Sorting web pages...", "WEB PAGE MANAGER");
+            Debug.Out("Sorting webpages alphabetically", "WEB PAGE MANAGER");
             string[] urls = new string[Pages.Count];
             ManagedWebPage[] originalPages = new ManagedWebPage[Pages.Count];
             Pages.CopyTo(originalPages, 0);
@@ -85,16 +85,16 @@ namespace Site_Manager
         }
 
         /// <summary>
-        /// Sets the "selected" ManagedWebPage, useful for coordinating between Home.xaml and EditWebPage.xaml
+        /// Sets the "selected" page, useful for coordinating between Home.xaml and EditWebPage.xaml
         /// </summary>
-        public static void SetSelectedPage(ManagedWebPage page)
+        public static void SetSelected(ManagedWebPage page)
         {
-            Debug.Out("Setting selected page to ManagedWebPage with a relative URL of \"" + page.RelativeURL + "\"...", "WEB PAGE MANAGER");
+            Debug.Out("Setting selected page to \"" + page.RelativeURL + "\"", "WEB PAGE MANAGER");
             Pages[SelectedPageIndex] = page;
         }
 
         /// <summary>
-        /// Saves all of the pages to the webpages.dat file
+        /// Saves all pages
         /// </summary>
         public static async Task Save()
         {
@@ -103,11 +103,11 @@ namespace Site_Manager
 
             if (!await FileManager.GetExists(GlobalString.FILENAME_WEBPAGES))
             {
-                Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" doesn't exist, creating an empty one...", "WARNING");
+                Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" doesn't exist, creating an empty one", "WARNING");
                 await FileManager.CreateStorageFile(GlobalString.FILENAME_WEBPAGES);
             }
 
-            Debug.Out("Writing to " + GlobalString.FILENAME_WEBPAGES + "\" ...", "WEB PAGE MANAGER");
+            Debug.Out("Saving", "WEB PAGE MANAGER");
             await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.FILENAME_WEBPAGES), Newtonsoft.Json.JsonConvert.SerializeObject(pages));
         }
 
@@ -116,40 +116,31 @@ namespace Site_Manager
         /// </summary>
         public static async Task Load()
         {
-            Debug.Out("Loading web pages...", "WEB PAGE MANAGER");
+            Debug.Out("Loading", "WEB PAGE MANAGER");
             if (Loaded)
             {
-                Debug.Out("Web pages have already been loaded!", "WARNING");
+                Debug.Out("Webpages have already been loaded", "WARNING");
                 return;
             }
 
             try
             {
-                Debug.Out("Getting \"" + GlobalString.FILENAME_WEBPAGES + "\"...", "WEB PAGE MANAGER");
+                Debug.Out("Getting \"" + GlobalString.FILENAME_WEBPAGES + "\"", "WEB PAGE MANAGER");
                 StorageFile file = await FileManager.GetStorageFile(GlobalString.FILENAME_WEBPAGES);
                 if (file == null)
                 {
-                    if (await FileManager.GetStorageFile("webpages.dat") != null)
-                    {
-                        await Migrate();
-                        Loaded = true;
-                        return;
-                    }
-                    else
-                    {
-                        Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" did not exist, creating an empty collection of web pages and writing to it...", "WARNING");
-                        Pages = new ObservableCollection<ManagedWebPage>();
-                        await Save();
-                        Loaded = true;
-                        return;
-                    }
+                    Debug.Out("\"" + GlobalString.FILENAME_WEBPAGES + "\" did not exist, creating an empty one", "WARNING");
+                    Pages = new ObservableCollection<ManagedWebPage>();
+                    await Save();
+                    Loaded = true;
+                    return;
                 }
 
-                Debug.Out("Reading \"" + GlobalString.FILENAME_WEBPAGES + "\"...", "WEB PAGE MANAGER");
+                Debug.Out("Reading \"" + GlobalString.FILENAME_WEBPAGES + "\"", "WEB PAGE MANAGER");
                 ManagedWebPage[] pages = Newtonsoft.Json.JsonConvert.DeserializeObject<ManagedWebPage[]>(await FileManager.GetFileContents(file));
                 foreach (ManagedWebPage page in pages)
                 {
-                    Debug.Out("Adding page with url of \"" + page.RelativeURL + "\"...", "WEB PAGE MANAGER");
+                    Debug.Out("Adding \"" + page.RelativeURL + "\"", "WEB PAGE MANAGER");
                     Pages.Add(page);
                 }
 
@@ -161,13 +152,5 @@ namespace Site_Manager
                 Debug.Out(e.Message, "EXCEPTION");
             }
         }
-
-        private static async Task Migrate()
-        {
-            Debug.Out("Migrating web pages...", "WEB PAGE MANAGER");
-            Pages = (ObservableCollection<ManagedWebPage>)StorageManager.LoadFromFile(Pages.GetType(), "webpages.dat");
-            await Save();
-        }
-
     }
 }

@@ -14,26 +14,23 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" MaxWidth="900">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Style="{StaticResource ContentTitleTextBlockStyle}">Managed Web Pages</TextBlock>
-            <ListView Grid.Row="1" Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" MinHeight="300" MaxHeight="750" HorizontalAlignment="Stretch" Style="{StaticResource ListViewBorderStyle}" IsItemClickEnabled="True" Margin="0,16,0,0">
+            <ListView Grid.Row="1" Name="WebPagesListView" ItemClick="WebPagesListView_ItemClick" IsItemClickEnabled="True" Margin="0,16,0,0" VerticalAlignment="Stretch" MaxHeight="650">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="site_manager:WebPageListItem">
-                        <StackPanel Margin="0,14,0,14">
-                            <TextBlock Text="{x:Bind URL}" FontWeight="SemiBold" FontSize="19" />
-                            <TextBlock Text="{x:Bind PageTitle}" FontSize="12" Margin="0,3,0,0" Foreground="{ThemeResource AccentButtonBackground}" />
+                        <StackPanel Margin="0,6,0,14">
+                            <TextBlock Text="{x:Bind PageTitle}" FontWeight="SemiBold" FontSize="19" />
+                            <TextBlock Text="{x:Bind URL}" FontSize="12" Margin="0,3,0,0" Foreground="{ThemeResource AccentButtonBackground}" />
                             <TextBlock Text="{x:Bind LastUpdated, Converter={StaticResource StringFormatConverter}, ConverterParameter='Last updated: {0}'}" FontSize="12" Margin="0,3,0,0" />
                         </StackPanel>
                     </DataTemplate>
@@ -47,7 +44,7 @@
                 <AutoSuggestBox Name="NewPageTextBox" PlaceholderText="https://egartley.net" TextChanged="NewPageTextBox_TextChanged" QuerySubmitted="NewPageTextBox_QuerySubmitted" SuggestionChosen="NewPageTextBox_SuggestionChosen" KeyUp="NewPageTextBox_KeyUp"  />
                 <Button Grid.Column="1" Name="AddNewPageButton" Margin="8,0,0,0" Height="32" Width="72" Click="AddNewPageButton_Click" Style="{StaticResource ButtonRevealStyle}">Add</Button>
             </Grid>
-            <TextBlock Grid.Row="3" Name="AddNewPageStatusTextBlock" Foreground="Red" FontWeight="Bold" Margin="4,12,0,0">
+            <TextBlock Margin="4,12,0,0" Grid.Row="3" Name="AddNewPageStatusTextBlock" Foreground="Red" FontWeight="Bold">
                 <TextBlock.Transitions>
                     <TransitionCollection>
                         <ContentThemeTransition />

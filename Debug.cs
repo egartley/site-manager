@@ -5,5 +5,7 @@
         public static void Out(object o) => System.Diagnostics.Debug.WriteLine("[DEBUG OUTPUT] " + o.ToString());
 
         public static void Out(object o, string tag) => System.Diagnostics.Debug.WriteLine("[" + tag + "] " + o.ToString());
+
+        public static void Out(System.Exception e) => System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
     }
 }

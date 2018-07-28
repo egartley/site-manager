@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView Name="ShellNavigationView" Loaded="ShellNavigationView_Loaded" AlwaysShowHeader="False" OpenPaneLength="220" CompactModeThresholdWidth="680" ExpandedModeThresholdWidth="680" ItemInvoked="ShellNavigationView_ItemInvoked">
+    <NavigationView Name="ShellNavigationView" Loaded="ShellNavigationView_Loaded" AlwaysShowHeader="False" OpenPaneLength="220" CompactModeThresholdWidth="680" ExpandedModeThresholdWidth="680" ItemInvoked="ShellNavigationView_ItemInvoked" IsBackButtonVisible="Collapsed" IsBackEnabled="False">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>

@@ -10,7 +10,7 @@ namespace Site_Manager
     class FTPManager
     {
         public static string Server, Password, Username;
-        private static bool ConfigurationLoaded = false;
+        public static bool ConfigurationLoaded = false;
         public static bool Connected = false;
         public static FtpClient Client;
 
@@ -19,12 +19,13 @@ namespace Site_Manager
         /// </summary>
         public static void LoadConfiguration()
         {
+
             if (ConfigurationLoaded)
             {
-                Debug.Out("FTP configuration already loaded!", "OKAY");
+                Debug.Out("FTP configuration already loaded!", "WARNING");
                 return;
             }
-            Debug.Out("Loading FTP configuration...", "FTP MANAGER");
+            Debug.Out("Loading FTP configuration", "FTP MANAGER");
             try
             {
                 ApplicationDataCompositeValue composite = SettingsManager.GetComposite(GlobalString.COMPOSITE_KEY_FTPCONFIG);
@@ -35,20 +36,23 @@ namespace Site_Manager
                 }
 
                 Username = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_USERNAME];
+                Debug.Out(Username, "CRED DEBUG");
                 Password = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_PASSWORD];
+                Debug.Out(Password, "CRED DEBUG");
                 Server = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_SERVER];
+                Debug.Out(Server, "CRED DEBUG");
                 ConfigurationLoaded = true;
 
                 Client = new FtpClient(Server)
                 {
                     Credentials = new System.Net.NetworkCredential(Username, Password),
                     RetryAttempts = 3,
-                    TransferChunkSize = 1024 * 6
+                    Port = 22
                 };
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
+                Debug.Out(e);
             }
         }
 
@@ -69,8 +73,18 @@ namespace Site_Manager
         public static async Task Connect()
         {
             CheckConfiguration();
+            try
+            {
+                await Client.ConnectAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.Out("Could not connect!", "FTP MANAGER");
+                Debug.Out(e);
+                Connected = false;
+                return;
+            }
             Debug.Out("Connected", "FTP MANAGER");
-            await Client.ConnectAsync();
             Connected = true;
         }
 
@@ -137,57 +151,47 @@ namespace Site_Manager
         }
 
         /// <summary>
-        /// Uploades the file (path must not include the filename or a trailing "/")
+        /// Uploads a file (path must not include the filename, but must end with a "/")
         /// </summary>
         public static async Task UploadFile(StorageFile file, string path)
         {
             CheckConfiguration();
-            if (path.Length == 1)
+            if (path.EndsWith("/") == false)
             {
                 Debug.Out("Fixed path", "FTP MANAGER");
-                path = "";
+                path += "/";
             }
-            string filepath = path + "/" + file.Name;
+            string filepath = path + file.Name;
+            Debug.Out($"Starting upload of \"{file.Name}\" to \"{path}\"", "FTP MANAGER");
             try
             {
-                if (path.Length != 0)
+                if (await Client.DirectoryExistsAsync(path) == false)
                 {
-                    // path was not ""
-                    Debug.Out("checking for dir", "FTP MANAGER");
-                    bool e = await Client.DirectoryExistsAsync(path);
-                    if (e == true)
-                    {
-                        Debug.Out("dir exists", "FTP MANAGER");
-                    }
-                    else
-                    {
-                        Debug.Out("dir DOES NOT exist, creating", "FTP MANAGER");
-                        await Client.CreateDirectoryAsync(path);
-                        Debug.Out("created \"" + path + "\"", "FTP MANAGER");
-                    }
-                }
-
-                /*Debug.Out("checking for index.html (" + filepath + ")", "FTP MANAGER");
-                bool fileExists = await Client.FileExistsAsync(filepath);
-                if (fileExists)
-                {
-                    Debug.Out("file DOES exist, deleting", "FTP MANAGER");
-                    await Client.DeleteFileAsync(filepath);
+                    await Client.CreateDirectoryAsync(path);
                 }
                 else
                 {
-                    Debug.Out("file does not exist, continuing", "FTP MANAGER");
-                }*/
-
+                    try
+                    {
+                        await Client.DeleteFileAsync(filepath);
+                    }
+                    catch (FtpException e)
+                    {
+                        Debug.Out(e);
+                        Debug.Out("Could not delete \"" + filepath + "\", assuming that it wasn't there, will continue upload", "FTP MANAGER");
+                    }
+                }
                 FileStream stream = File.OpenRead(file.Path);
-                Debug.Out("uploading file", "FTP MANAGER");
-                bool upload = await Client.UploadAsync(stream, filepath, FtpExists.Overwrite, true);
-                Debug.Out("success: " + upload, "FTP MANAGER");
+                // FtpExists.NoCheck because it was already checked
+                await Client.UploadAsync(stream, filepath, FtpExists.NoCheck, true);
+                await stream.FlushAsync();
                 stream.Dispose();
+                stream.Close();
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message + "\n" + e.StackTrace);
+                Debug.Out("Upload failed!", "FTP MANAGER");
+                Debug.Out(e);
             }
         }
 

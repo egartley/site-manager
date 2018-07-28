@@ -28,6 +28,9 @@ namespace Site_Manager
             // naviagte to home page by default
             LastPage = "Home";
             ShellFrame.Navigate(typeof(Home));
+            // next two lines make it so that the small colored rectangle (indicator) is shown next to the home nav item
+            ShellNavigationView.SelectedItem = NavigationItems[0];
+            ShellNavigationView.UpdateLayout();
         }
 
         private void ShellNavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -51,25 +54,23 @@ namespace Site_Manager
                 LastPage = clickedNavigationItem;
             }
 
+            Debug.Out("Navigating to " + clickedNavigationItem);
             switch (clickedNavigationItem)
             {
                 case "Home":
-                    Debug.Out("Navigating to Home.xaml");
                     ShellFrame.Navigate(typeof(Home));
                     break;
 
                 case "Redirections":
-                    Debug.Out("Navigating to Redirections.xaml");
                     ShellFrame.Navigate(typeof(Redirections));
                     break;
 
                 case "Core Modules":
-                    Debug.Out("Navigating to CoreModules.xaml");
                     ShellFrame.Navigate(typeof(CoreModules));
                     break;
 
                 default:
-                    Debug.Out("Unknown page \"" + clickedNavigationItem + "\" was attempted to be navigated to", "WARNING");
+                    Debug.Out("Unknown page \"" + clickedNavigationItem + "\" could not be navigated to", "WARNING");
                     break;
             }
         }
@@ -78,7 +79,8 @@ namespace Site_Manager
         {
             if (e.SourcePageType == typeof(EditWebPage))
             {
-                LastPage = "EditWebPage"; // be able to navigate back to home page from edit web page
+                // be able to navigate back to home page from edit web page
+                LastPage = "EditWebPage";
             }
         }
     }
