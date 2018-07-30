@@ -24,7 +24,7 @@ namespace Site_Manager
             {
                 return null;
             }
-            Debug.Out($"Returning the StorageFile \"{name}\" from LocalFolder (\"{localFolder.Path}\")", "FILE MANAGER");
+            Debug.Out($"Returning \"{name}\" from LocalFolder", "FILE MANAGER");
             return await localFolder.GetFileAsync(name);
         }
 
@@ -38,6 +38,7 @@ namespace Site_Manager
                 throw new ArgumentNullException(nameof(content) + " or " + nameof(name));
             }
             StorageFile file = await temporaryFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
+            Debug.Out($"Creating temporary file, \"{name}\", with {content.Length + 1} bytes of content", "FILE MANAGER");
             await FileIO.WriteTextAsync(file, content);
             return file;
         }
@@ -51,7 +52,6 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(content));
             }
-            Debug.Out($"Creating and returning temporary file \"index.html\" with content of size {content.Length}", "FILE MANAGER");
             return await CreateTemporaryFile(content, "index.html");
         }
 
@@ -64,7 +64,7 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            Debug.Out($"Creating and returnign storage file \"{name}\"", "FILE MANAGER");
+            Debug.Out($"Creating \"{name}\" in LocalState", "FILE MANAGER");
             return await localFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
         }
 
@@ -77,7 +77,7 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(file));
             }
-            Debug.Out($"Returning contents of file \"{file.Name}\"", "FILE MANAGER");
+            Debug.Out($"Returning contents of \"{file.Name}\"", "FILE MANAGER");
             return await FileIO.ReadTextAsync(file);
         }
 
@@ -90,7 +90,7 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(file) + " or " + nameof(content));
             }
-            Debug.Out($"Writing content with size of {content.Length} to \"{file.Name}\"", "FILE MANAGER");
+            Debug.Out($"Writing {content.Length + 1} bytes of content to \"{file.Name}\"", "FILE MANAGER");
             await FileIO.WriteTextAsync(file, content);
         }
 
@@ -103,12 +103,12 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(file) + " or " + nameof(lines));
             }
-            Debug.Out($"Writing content (as lines) to \"{file.Name}\"", "FILE MANAGER");
+            Debug.Out($"Writing specified lines to \"{file.Name}\"", "FILE MANAGER");
             await FileIO.WriteLinesAsync(file, lines);
         }
 
         /// <summary>
-        /// Returns file or folder's existence in the StorageFolder (relative name or path)
+        /// Returns file or folder's existence in the given folder (relative name or path)
         /// </summary>
         public static async Task<bool> GetExists(StorageFolder folder, string name)
         {
@@ -116,12 +116,12 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(folder) + " or " + nameof(name));
             }
-            Debug.Out($"Returning if {name} exists or not in {folder.Name} (\"{folder.Path}\")", "FILE MANAGER");
+            Debug.Out($"Returning if whether or not \"{name}\" exists in {folder.Name}", "FILE MANAGER");
             return await folder.TryGetItemAsync(name) != null;
         }
 
         /// <summary>
-        /// Returns the file or folder's existence within LocalFolder (relative name or path)
+        /// Returns the file or folder's existence within the LocalState folder (relative name or path)
         /// </summary>
         public static async Task<bool> GetExists(string name)
         {
@@ -129,7 +129,6 @@ namespace Site_Manager
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            Debug.Out($"Returning if {name} exists or not in LocalFolder (\"{localFolder.Path}\")", "FILE MANAGER");
             return await GetExists(localFolder, name);
         }
     }

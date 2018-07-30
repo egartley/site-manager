@@ -101,26 +101,4 @@
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
-            <AcrylicBrush x:Key="ShellFrameContentBackgroundBrush"
-                          BackgroundSource="HostBackdrop"
-                          TintColor="Black"
-                          TintOpacity="0.7575"
-                          FallbackColor="Black"/>
-        </ResourceDictionary>
-
-        <ResourceDictionary x:Key="HighContrast">
-            <SolidColorBrush x:Key="ShellFrameContentBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
-        </ResourceDictionary>
-
-        <ResourceDictionary x:Key="Light">
-            <AcrylicBrush x:Key="ShellFrameContentBackgroundBrush"
-                          BackgroundSource="HostBackdrop"
-                          TintColor="{ThemeResource SystemAltLowColor}"
-                          TintOpacity="0.2"
-                          FallbackColor="White"/>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
-
 </ResourceDictionary>

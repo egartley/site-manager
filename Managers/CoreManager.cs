@@ -13,6 +13,8 @@ namespace Site_Manager
 
         public static async void Load()
         {
+            // this is such a shitshow
+
             Debug.Out("Loading modules...", "CORE MANAGER");
             if (Loaded)
             {
@@ -50,24 +52,21 @@ namespace Site_Manager
             }
             catch (Exception e)
             {
-                Debug.Out(e.StackTrace, "EXCEPTION");
-                Debug.Out(e.Message, "EXCEPTION");
+                Debug.Out(e);
             }
         }
 
         public static async Task Save()
         {
-            Debug.Out("Saving modules...", "CORE MANAGER");
+            Debug.Out("Saving modules", "CORE MANAGER");
             CoreModule[] array = new CoreModule[Modules.Count];
             Modules.CopyTo(array, 0);
 
             if (!await FileManager.GetExists(GlobalString.FILENAME_CORE_MODULES))
             {
-                Debug.Out("\"" + GlobalString.FILENAME_CORE_MODULES + "\" doesn't exist, creating an empty one...", "WARNING");
+                Debug.Out("\"" + GlobalString.FILENAME_CORE_MODULES + "\" doesn't exist, creating an empty one", "WARNING");
                 await FileManager.CreateStorageFile(GlobalString.FILENAME_CORE_MODULES);
             }
-
-            Debug.Out("Writing to " + GlobalString.FILENAME_CORE_MODULES + "\" ...", "CORE MANAGER");
             await FileManager.WriteToFile(await FileManager.GetStorageFile(GlobalString.FILENAME_CORE_MODULES), Newtonsoft.Json.JsonConvert.SerializeObject(array));
         }
 

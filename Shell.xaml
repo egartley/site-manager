@@ -29,8 +29,8 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" Background="{StaticResource ShellFrameContentBackgroundBrush}">
-            <Frame Name="ShellFrame" Background="{StaticResource ShellFrameContentBackgroundBrush}" Navigated="ShellFrame_Navigated">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
+            <Frame Name="ShellFrame" Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Navigated="ShellFrame_Navigated">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition />
