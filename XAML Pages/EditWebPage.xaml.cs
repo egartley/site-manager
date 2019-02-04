@@ -21,8 +21,8 @@ namespace Site_Manager
 
             TitleTextBox.Text = Page.Title;
             RelativeURLTextBlock.Text = Page.RelativeURL;
+            // tool tip for when URL is too long to show all of it
             ToolTipService.SetToolTip(RelativeURLTextBlock, new ToolTip() { Content = Page.RelativeURL });
-            IsRootTextBlock.Text = Page.IsRoot.ToString().ToLower();
             LastUpdatedTextBlock.Text = Page.GetLastUpdatedAsString();
             LastSubmittedTextBlock.Text = Page.GetLastSubmittedAsString();
             ContentHTMLTextBox.Text = Page.ContentHTML;
@@ -59,12 +59,7 @@ namespace Site_Manager
 
             if (contentHTML.Length != 0 && headerHTML.Length != 0)
             {
-                string name = Utils.RandomString(8);
-                while (await FileManager.GetExists(ApplicationData.Current.TemporaryFolder, name + ".txt"))
-                {
-                    name = Utils.RandomString(8); // ensure file with same name doesn't already exist (next to zero chance)
-                }
-                await Windows.System.Launcher.LaunchFileAsync(await FileManager.CreateTemporaryFile(contentHTML, name + ".txt"));
+                await Windows.System.Launcher.LaunchFileAsync(await FileManager.CreateTemporaryFile(contentHTML, Page.RelativeURL.Replace("/", "_") + ".html"));
             }
         }
 

@@ -100,15 +100,13 @@
 
                 <TextBlock Grid.Row="0" Style="{StaticResource DetailTitleTextBlockStyle}">Title:</TextBlock>
                 <TextBlock Grid.Row="1" Style="{StaticResource DetailTitleTextBlockStyle}">Relative URL:</TextBlock>
-                <TextBlock Grid.Row="2" Style="{StaticResource DetailTitleTextBlockStyle}">Is Root:</TextBlock>
-                <TextBlock Grid.Row="3" Style="{StaticResource DetailTitleTextBlockStyle}">Last Updated:</TextBlock>
-                <TextBlock Grid.Row="4" Style="{StaticResource DetailTitleTextBlockStyle}">Last Submitted:</TextBlock>
+                <TextBlock Grid.Row="2" Style="{StaticResource DetailTitleTextBlockStyle}">Last Updated:</TextBlock>
+                <TextBlock Grid.Row="3" Style="{StaticResource DetailTitleTextBlockStyle}">Last Submitted:</TextBlock>
 
                 <TextBox Name="TitleTextBox" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="12,0,0,8" MinWidth="260" MaxWidth="300" HorizontalAlignment="Left" Text="United States of America" />
                 <TextBlock Name="RelativeURLTextBlock" Grid.Column="1" Grid.Row="1" Style="{StaticResource DetailTextBlockStyle}" Text="/united-states" />
-                <TextBlock Name="IsRootTextBlock" Grid.Column="1" Grid.Row="2" Style="{StaticResource DetailTextBlockStyle}" Text="True" />
-                <TextBlock Name="LastUpdatedTextBlock" Grid.Column="1" Grid.Row="3" Style="{StaticResource DetailTextBlockStyle}" Text="July 4, 1776 at 12:00 PM" />
-                <TextBlock Name="LastSubmittedTextBlock" Grid.Column="1" Grid.Row="4" Style="{StaticResource DetailTextBlockStyle}" Text="January 20, 2017 at 12:00 PM" />
+                <TextBlock Name="LastUpdatedTextBlock" Grid.Column="1" Grid.Row="2" Style="{StaticResource DetailTextBlockStyle}" Text="July 4, 1776 at 12:00 PM" />
+                <TextBlock Name="LastSubmittedTextBlock" Grid.Column="1" Grid.Row="3" Style="{StaticResource DetailTextBlockStyle}" Text="January 20, 2017 at 12:00 PM" />
             </Grid>
             <StackPanel Margin="0,32,0,0">
                 <StackPanel Orientation="Horizontal">

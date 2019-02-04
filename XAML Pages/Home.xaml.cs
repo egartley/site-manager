@@ -205,7 +205,14 @@ namespace Site_Manager
             Frame.Navigate(typeof(EditWebPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
-        private async void DeployButton_Click(object sender, RoutedEventArgs e) => await Deployer.DeployAll();
+        private async void DeployButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Deployer.DeployAll();
+            /*Debug.Out("Clicked deploy button", "HOME PAGE");
+            await FTPManager.Connect();
+            await Task.Delay(3000);
+            await FTPManager.Disconnect();*/
+        }
 
         private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {

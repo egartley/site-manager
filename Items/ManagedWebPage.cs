@@ -10,13 +10,11 @@ namespace Site_Manager
         public string Title { get; set; }
         public DateTime LastUpdated { get; set; }
         public DateTime LastSubmitted { get; set; }
-        public bool IsRoot { get; set; }
 
         public ManagedWebPage()
         {
             RelativeURL = "";
             ContentHTML = "";
-            IsRoot = RelativeURL.LastIndexOf("/") == 0;
             AdditionalHeaderHTML = "";
             Title = "Untitled";
             LastUpdated = DateTime.MinValue;
@@ -27,7 +25,6 @@ namespace Site_Manager
         {
             RelativeURL = url;
             ContentHTML = "";
-            IsRoot = RelativeURL.LastIndexOf("/") == 0;
             AdditionalHeaderHTML = "";
             Title = "Untitled";
             LastUpdated = DateTime.MinValue;
@@ -38,7 +35,6 @@ namespace Site_Manager
         {
             RelativeURL = url;
             ContentHTML = html;
-            IsRoot = RelativeURL.LastIndexOf("/") == 0;
             AdditionalHeaderHTML = "";
             Title = "Untitled";
             LastUpdated = DateTime.MinValue;

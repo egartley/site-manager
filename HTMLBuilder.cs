@@ -4,7 +4,7 @@
     {
         public static string GetRedirectionHTML(string destination)
         {
-            Debug.Out($"Returning HTML for redirection to \"{destination}\"", "HTML BUILDER");
+            Debug.Out($"Generating HTML for redirection to \"{destination}\"", "HTML BUILDER");
             return "<!DOCTYPE html><head>" + GlobalString.HTML_BUILDER_SIGNATURE + "<script type=\"text/javascript\">window.location=\"" + destination + "\"</script></head><body></body></html>";
         }
 

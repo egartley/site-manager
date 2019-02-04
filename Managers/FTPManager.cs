@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using Renci.SshNet;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using FluentFTP;
 
 namespace Site_Manager
 {
@@ -12,7 +12,7 @@ namespace Site_Manager
         public static string Server, Password, Username;
         public static bool ConfigurationLoaded = false;
         public static bool Connected = false;
-        public static FtpClient Client;
+        public static SftpClient Client;
 
         /// <summary>
         /// Load configuartion, such as username and password (does nothing if already called)
@@ -36,19 +36,11 @@ namespace Site_Manager
                 }
 
                 Username = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_USERNAME];
-                Debug.Out(Username, "CRED DEBUG");
                 Password = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_PASSWORD];
-                Debug.Out(Password, "CRED DEBUG");
                 Server = (string)composite[GlobalString.COMPOSITE_KEY_FTPCONFIG_SERVER];
-                Debug.Out(Server, "CRED DEBUG");
                 ConfigurationLoaded = true;
 
-                Client = new FtpClient(Server)
-                {
-                    Credentials = new System.Net.NetworkCredential(Username, Password),
-                    RetryAttempts = 3,
-                    Port = 22
-                };
+                Client = new SftpClient(Server, 22, Username, Password);
             }
             catch (Exception e)
             {
@@ -75,12 +67,12 @@ namespace Site_Manager
             CheckConfiguration();
             try
             {
-                await Client.ConnectAsync();
+                Client.Connect();
             }
             catch (Exception e)
             {
-                Debug.Out("Could not connect!", "FTP MANAGER");
-                Debug.Out(e);
+                Debug.Out("Could not connect! (" + e.Message + ")", "FTP MANAGER");
+                Debug.Out(e.StackTrace);
                 Connected = false;
                 return;
             }
@@ -95,7 +87,7 @@ namespace Site_Manager
         {
             CheckConfiguration();
             Debug.Out("Disconnected", "FTP MANAGER");
-            await Client.DisconnectAsync();
+            // KJDFIOSAHFUISHIGGGGGGUIFHEDUFUIEHUHUIIHUIUIUHFEHUFEFEHFEWEFHEF
             Connected = false;
         }
 
@@ -106,7 +98,7 @@ namespace Site_Manager
         {
             CheckConfiguration();
             FileStream stream = File.Create(ApplicationData.Current.LocalFolder.Path + "/" + name);
-            await Client.DownloadAsync(stream, dir + name);
+            // await Client.DownloadAsync(stream, dir + name);
             stream.Dispose();
             return await ApplicationData.Current.LocalFolder.GetFileAsync(name);
         }
@@ -135,7 +127,7 @@ namespace Site_Manager
         public static async Task DeleteFile(string path)
         {
             CheckConfiguration();
-            await Client.DeleteFileAsync(path);
+            // await Client.DeleteFileAsync(path);
         }
 
         /// <summary>
@@ -165,7 +157,7 @@ namespace Site_Manager
             Debug.Out($"Starting upload of \"{file.Name}\" to \"{path}\"", "FTP MANAGER");
             try
             {
-                if (await Client.DirectoryExistsAsync(path) == false)
+                /*if (await Client.DirectoryExistsAsync(path) == false)
                 {
                     await Client.CreateDirectoryAsync(path);
                 }
@@ -186,7 +178,7 @@ namespace Site_Manager
                 await Client.UploadAsync(stream, filepath, FtpExists.NoCheck, true);
                 await stream.FlushAsync();
                 stream.Dispose();
-                stream.Close();
+                stream.Close();*/
             }
             catch (Exception e)
             {
@@ -201,7 +193,7 @@ namespace Site_Manager
         public static async Task CreateDirectory(string path)
         {
             CheckConfiguration();
-            await Client.CreateDirectoryAsync(path);
+            // await Client.CreateDirectoryAsync(path);
         }
 
         /// <summary>
@@ -227,7 +219,7 @@ namespace Site_Manager
         public static async Task DeleteDirectory(string path)
         {
             CheckConfiguration();
-            await Client.DeleteDirectoryAsync(path);
+            // await Client.DeleteDirectoryAsync(path);
         }
 
         /// <summary>
@@ -253,7 +245,8 @@ namespace Site_Manager
         public static async Task<bool> GetDirectoryExists(string path)
         {
             CheckConfiguration();
-            return await Client.DirectoryExistsAsync(path);
+            // return await Client.DirectoryExistsAsync(path);
+            return false;
         }
 
         /// <summary>
@@ -280,7 +273,8 @@ namespace Site_Manager
         public static async Task<string> GetWorkingDirectory()
         {
             CheckConfiguration();
-            return await Client.GetWorkingDirectoryAsync();
+            // return await Client.GetWorkingDirectoryAsync();
+            return null;
         }
 
         /// <summary>
@@ -289,7 +283,7 @@ namespace Site_Manager
         public static async Task SetWorkingDirectory(string path)
         {
             CheckConfiguration();
-            await Client.SetWorkingDirectoryAsync(path);
+            // await Client.SetWorkingDirectoryAsync(path);
         }
 
         /// <summary>
@@ -301,11 +295,11 @@ namespace Site_Manager
             string r = await GetWorkingDirectory();
             await SetWorkingDirectory(path);
             List<FTPItem> list = new List<FTPItem>();
-            foreach (FtpListItem item in await Client.GetListingAsync(path))
+            /*foreach (FtpListItem item in await Client.GetListingAsync(path))
             {
                 list.Add(new FTPItem() { IsDirectory = item.Type == FtpFileSystemObjectType.Directory, Name = item.Name, Size = (int)item.Size });
             }
-            await SetWorkingDirectory(r);
+            await SetWorkingDirectory(r);*/
             return list;
         }
 
