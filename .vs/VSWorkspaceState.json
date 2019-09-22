@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Dialogs",
+    "\\Items",
+    "\\Managers",
+    "\\XAML Pages"
   ],
-  "SelectedNode": "\\XAML Pages",
+  "SelectedNode": "\\XAML Pages\\Home.xaml",
   "PreviewInSolutionExplorer": false
 }

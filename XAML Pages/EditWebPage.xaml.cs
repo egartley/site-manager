@@ -20,6 +20,7 @@ namespace Site_Manager
             Page = WebPageManager.GetSelectedPage();
 
             TitleTextBox.Text = Page.Title;
+            TitleTextBlock.Text = "Edit \"" + Page.Title + "\" Details";
             RelativeURLTextBlock.Text = Page.RelativeURL;
             // tool tip for when URL is too long to show all of it
             ToolTipService.SetToolTip(RelativeURLTextBlock, new ToolTip() { Content = Page.RelativeURL });

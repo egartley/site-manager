@@ -84,7 +84,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <StackPanel Name="LeftPanel" Grid.Column="0" Grid.Row="0">
-            <TextBlock Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,32" Text="Edit Page Details" />
+            <TextBlock Name="TitleTextBlock" Style="{StaticResource ContentTitleTextBlockStyle}" Margin="0,0,0,32" Text="Edit Page Details" />
             <Grid Name="DetailsGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -101,7 +101,7 @@
                 <TextBlock Grid.Row="0" Style="{StaticResource DetailTitleTextBlockStyle}">Title:</TextBlock>
                 <TextBlock Grid.Row="1" Style="{StaticResource DetailTitleTextBlockStyle}">Relative URL:</TextBlock>
                 <TextBlock Grid.Row="2" Style="{StaticResource DetailTitleTextBlockStyle}">Last Updated:</TextBlock>
-                <TextBlock Grid.Row="3" Style="{StaticResource DetailTitleTextBlockStyle}">Last Submitted:</TextBlock>
+                <TextBlock Grid.Row="3" Style="{StaticResource DetailTitleTextBlockStyle}">Last Deployed:</TextBlock>
 
                 <TextBox Name="TitleTextBox" Grid.Column="1" Grid.Row="0" FontSize="18" Margin="12,0,0,8" MinWidth="260" MaxWidth="300" HorizontalAlignment="Left" Text="United States of America" />
                 <TextBlock Name="RelativeURLTextBlock" Grid.Column="1" Grid.Row="1" Style="{StaticResource DetailTextBlockStyle}" Text="/united-states" />
