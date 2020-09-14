@@ -1,6 +1,8 @@
 # Site Manager
 UWP application, written in C#, used for generating static HTML for <a href="https://egartley.net/?via=sitemanagergithubreadme">egartley.net</a>.
 
+Demo video: https://youtu.be/s8SGg22-0p8
+
 The actual implementation can be found <a href="https://github.com/egartley/site-manager/blob/master/HTMLBuilder.cs">here</a>. There is also capability for uploading the HTML files directly through an FTP/SFTP connection, but this is not currently be used.
 
 Similarly with the ability to create, edit and remove redirections (go.egartley.net), that too is not functional at the moment.
